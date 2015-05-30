@@ -1,0 +1,222 @@
+
+html
+{
+	background-image: url('../img/background-image.jpg');
+	margin: 0px;
+	width: 340px;
+	height:380px;
+	-webkit-font-smoothing: antialiased;
+	color: #fff;
+}
+
+
+::-moz-selection {
+    background: none;
+    text-shadow: none;
+}
+
+::selection {
+    background: none;
+    text-shadow: none;
+}
+
+body{
+	font-family: roboto-thin;
+	font-size: 18px;
+	margin: 0;
+	cursor: default;
+
+}
+
+header{
+	height: 8%;
+}
+
+
+
+ul{
+	margin: 0px;
+	padding-left: 0;
+}
+
+ul li{
+	list-style-type: none;
+	width: 190px;
+	height: 100%;
+	margin-top: 5px;
+	margin-left: 0;
+	padding: 0;
+	text-align: justify;
+}
+ul a{
+	text-decoration: none;
+	color: #fff;
+	float: left;
+}
+ul li:hover{
+	text-decoration: underline;
+}
+
+.dashboard-container{
+	background-color: rgba(0,0,0,0.40);
+	padding-left: 8px;
+	padding-top: 8px;
+	padding-right: 8px;
+}
+.box-bulb{
+	height:40%;
+	width:40%;
+	padding-top: 20px;
+	float: left;
+
+}
+.bulb-img{
+	padding-top: 15px;
+	height: 120px;
+	width: 120px;
+}
+.box-times{
+	height:40%;
+	width:60%;
+	float: right;
+}
+.box-remaining{
+	height: 9%;
+	float: none;
+	clear: both;
+	text-align: center;
+}
+.box-date{
+	height: 6%;
+}
+
+.box-tommorow{
+	clear: both;
+	font-size: 25px;
+	height: 37%;
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+.box-junkiree{
+/*display: none !important;*/
+	clear: both;
+	font-size: 14px;
+	height: 50px;
+	width: 100%;
+	font-family: sans-serif;
+	background-color: rgba(24, 24, 24, 0.18);
+}
+.box-junkiree a{
+	color: white;
+	text-decoration: none;
+}
+.box-junkiree div:hover{background-color: rgba(5,5,5, 0.25);}
+.box-tommorow-time{
+	height: 37%;
+	float: right;
+	margin-right: 10px;
+}
+.left{
+	float: left;
+}
+.right{
+	float: right;
+}
+
+.label-pages{
+	padding-top:12px;
+	width:170px;
+	height:40px;
+	text-align: center;
+	font-size: 13px;
+	font-family: segoe ui;
+	}
+
+
+#style-times{
+	white-space: nowrap;
+
+}
+#style-remaining{
+	font-family: Segoe Ui, helvetica;
+	font-size: 13px;
+}
+
+#style-group{
+	font-family: helvetica, verdana, Segoe UI;
+	padding-top: 9px;
+	font-size:12px;
+	float: left;
+}
+
+#style-date{
+	font-family: helvetica, verdana, Segoe UI;
+	padding-top: 7px;
+	font-size: 12px;
+	float: right;
+}
+#label-tommorow{
+	float: left;
+	padding-top: 15%;
+	font-size: 25px;
+
+}
+#divider-tommorow{
+	float: left;
+	padding-top: 5%;
+	font-size: 63px;
+}
+
+#style-tommorow{
+	float: right;
+	border-left: 1px solid #dadada;
+	padding-top: 2%;
+	margin-top: 8%;
+	white-space: nowrap;
+}
+
+#style-today{
+ 	font-size: 16px;
+
+}
+
+#style-current{
+	font-size: 16px;
+	letter-spacing: .5px;
+	float: right;
+
+}
+
+.meridian-today{
+	line-height: 2;
+	font-size: 21px;
+}
+
+.military-today{
+	font-size: 32px;
+
+}
+
+
+.military-tommorow{
+	font-size: 25px;
+	padding-left: 20px;
+
+}
+
+.meridian-tommorow{
+	padding-left: 15px;
+	line-height: 2;
+	font-size: 17px;
+}
+
+
+.powerOn{
+	color: #69DA95;
+
+}
+.powerOff{
+	color: #FF7676;
+
+}

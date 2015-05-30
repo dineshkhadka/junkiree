@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8" >
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+<title>junkiree Schedule Viewer</title>
+
+<link rel="stylesheet" href="css/fonts.css" />
+<link rel="stylesheet" type="text/css" href="css/junkiree-schedule.css" />
+
+<script src="js/ext/jquery.min.js" type="text/javascript"></script>
+<script src="js/junkiree.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div class="container">
+
+
+<div class="banner">
+<span class="junkiree">
+junkiree
+</span>
+
+<span class="tagline">
+Loadshedding Schedule viewer for chrome
+</span>
+
+<div class="page-wrapper">
+<ul id="page-selector">
+<a href="#group1"><li>Schedules</li></a>
+<a href="#options"><li>Options</li></a>
+<a href="#help"><li>Help</li></a>
+</ul>
+</div>
+
+</div>
+<div class="hide" id="group-selector">
+<ul>
+
+<a href="#group1"><li id="g1">Group 1</li></a>
+<a href="#group2"><li id="g2">Group 2</li></a>
+<a href="#group3"><li id="g3">Group 3</li></a>
+<a href="#group4"><li id="g4">Group 4</li></a>
+<a href="#group5"><li id="g5">Group 5</li></a>
+<a href="#group6"><li id="g6">Group 6</li></a>
+<a href="#group7"><li id="g7">Group 7</li></a>
+
+
+</ul>
+</div>
+</div>
+<!--<div id="schedule-panel">
+</div>
+-->
+
+
+<div class="panel">
+<div class="schedule" id="tab-schedule">
+
+<table><tbody>
+<tr class="bar">
+	<th class="date">Sunday</th>
+	<th id="sun"></th>
+
+</tr>
+
+<tr class="bar">
+	<th class="date">Monday</th>
+	<th id="mon"></th>
+
+</tr>
+
+<tr class="bar">
+	<th class="date">Tuesday</th>
+	<th id="tue"></th>
+
+</tr>
+
+<tr class="bar">
+	<th class="date">Wednesday</th>
+	<th id="wed"></th>
+
+</tr>
+
+<tr class="bar">
+	<th class="date">Thursday</th>
+	<th id="thu"></th>
+
+</tr>
+
+<tr class="bar">
+	<th class="date">Friday</th>
+	<th id="fri"></th>
+
+</tr>
+
+<tr class="bar">
+	<th class="date">Saturday</th>
+	<th id="sat"></th>
+
+</tr>
+
+
+</tbody></table>
+</div>
+
+
+
+
+
+ <!-- Div for schedule panel ends -->
+
+
+<!-- 
+
+	* select default group
+	* notifications (on / off)
+	* notifications interval
+	* auto update (on / off)
+
+-->
+
+
+
+<div id="option-panel" class="hide">
+
+
+<div id="messagebox" class="hide">
+</div>
+<section>
+
+
+<label class="label-style">
+<span class="option-title">
+Set my default group as:
+</span>
+
+<select id="option-group" class="fselect-style">
+
+<option value="group1">Group 1</option>
+<option value="group2">Group 2</option>
+<option value="group3">Group 3</option>
+<option value="group4">Group 4</option>
+<option value="group5">Group 5</option>
+<option value="group6">Group 6</option>
+<option value="group7">Group 7</option>
+
+</select>
+<span class="description">
+Sets the default group.
+</span>
+</label>
+</section>
+
+
+
+<section>
+
+<label class="label-style">
+<span class="option-title">
+Auto update schedules:
+</span>
+</label>
+<form id="option-autoupdate">
+<input type="radio" name="autoupdate" value="on">Yes</input>
+
+
+
+<input type="radio" name="autoupdate" value="off">No</input>
+</form>
+<button id="update-button"> Update </button>
+<span class="description"> Automagically update Schedules. <!-- Intended typo -->
+</span>
+
+</section>
+
+
+
+
+<section>
+
+<label class="label-style">
+<span class="option-title">
+Notifications:
+</span></label>
+<form id="option-notification">
+<input type="radio" name="notification" value="true">On</input>
+
+
+
+<input type="radio" name="notification" value="false">Off</input>
+</form>
+<span class="description"> 
+If switched on, notifies you before the loadshedding takes place.
+
+</span>
+</section>
+
+<section>
+
+
+<label class="label-style">
+<span class="option-title">
+Notify me before:
+</span>
+</label>
+<select class="select-style" id="option-notification-time">
+
+<option value="t1">15 Minutes</option>
+<option value="t2">30 Minutes</option>
+<option value="t3">1 Hour</option>
+
+</select>
+
+<span class="description"> 
+If <strong>Notifications</strong> is <kbd>on</kbd> a notification is shown before the selected time.
+
+</span>
+</section>
+
+
+<section>
+
+<label class="label-style">
+<span class="option-title">
+Time Format:
+</span></label>
+<form id="option-military-time">
+<input type="radio" name="military" value="true">24 Hr</input>
+
+
+
+<input type="radio" name="military" value="false">12 Hr</input>
+</form>
+<span class="description"> 
+This applies throughout the app
+
+</span>
+</section>
+
+</div>
+  <!-- Div for options panel ends -->
+  
+  
+  
+<div id="help-panel">
+
+
+<h1>About junkiree</h1>
+<p>junkiree is a Free and Open Source loadshedding viewer for Google Chrome.
+<br>This app is currently at beta stage and further updates and bug fixes will be provided through the app store or through the project page. You can learn more about the app from junkiree’s <a href="http://junkiree.github.io">project page</a>. 
+</p>
+
+<h1>Help and Issue</h1>
+<p>Any feedback is greatly appreciated. If you stumble upon a problem with the app or need help regarding anything, <a href="mailto:dnshka@gmail.com">drop me an email</a> or a <a href="http://twitter.com/dineshlakai">tweet</a>. <br>
+You can also post issues, suggest changes  or view the source from junkiree’s official <a href="http://github.com/dineshkhadka/junkiree">Github page</a>
+
+
+</p>
+<h1>Credits</h1>
+<p>
+
+junkiree version <small>3.5.1</small> was built using Javascript.<br> The features in the app were made possible by <a href="#">Nepali date converter</a>, <a href="#">jQuery Knob</a> 
+and of course, <a href="#">jQuery</a>
+
+
+</p>
+
+
+
+
+<h1>Connect</h1>
+<p>
+<div class="social">
+<ul>
+<a href="#"><li><img src="img/social-facebook-outline.svg" />Facebook</li></a>
+<a href="#"><li><img src="img/social-twitter-outline.svg" />Twitter</li></a>
+<a href="#"><li><img src="img/social-github-outline.svg" />Github</li></a>
+
+
+</ul>
+</div>
+
+</p>
+
+
+
+<h1>About the author</h1>
+<p>
+The author 'Dinesh khadka' is just another guy from Kathmandu who loves to code.
+</p>
+</div>
+<p class="credits">
+Created By <a href="#">Dinesh Khadka</a>
+</p>
+<script src="js/options.js" type="text/javascript"></script>
+</body>
+</html>

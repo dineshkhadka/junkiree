@@ -1,0 +1,84 @@
+
+
+<!-- Adding doctype in this HTML file messed up the stylings pretty bad. Learnt it the hard way-->
+<html lang="en">
+<meta charset="utf-8" >
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+
+<title>Junkiree</title>
+<meta charset="utf-8">
+   <script type="text/javascript" src="js/ext/jquery.min.js"></script>
+   <script type="text/javascript" src="js/ext/jquery.knob.js"></script>
+   <script type="text/javascript" src="js/junkiree.js"></script>
+   <script type="text/javascript" src="js/initialize.js"></script>
+   <script type="text/javascript" src="js/ext/date.js"></script>
+   <script type="text/javascript" src="js/ext/engtonep.js"></script>
+
+   <link rel="stylesheet" href="css/fonts.css" />
+   <link rel="stylesheet" href="css/junkiree-main.css" />
+   
+
+</head>
+
+<body tabindex="1" style="overflow: hidden;">
+
+
+
+<div class="dashboard">
+<div class="dashboard-container">
+	<header>
+<span id="style-today"></span>
+<span id="style-current"></span>
+	</header>
+	
+	<div class="box-bulb">
+				<div style="position:relative;width:350px;margin:auto">
+                <div style="position:absolute;left:10px;top:10px">
+				<input id="jKnob"class="knob bulb-img" data-min="0" data-readonly=true data-fgColor="#2d9" data-displayInput=false data-width="100" data-height="100" data-thickness=".08" value=80>
+				</div>
+				
+				<div style="position:absolute;left:40px;top:40px">
+				<img id="bulb" />
+				</div>
+				</div>
+				
+		</div>
+	<div class="box-times">
+				<span id="style-times"><br>
+				</span>
+		</div>
+	
+
+
+
+	<div class="box-remaining">
+		<span id="style-remaining">
+				
+		</span>
+	</div>
+	<div class="box-date">
+		<span id="style-group">
+		</span>
+		<span id="style-date">
+				
+		</span>
+	</div>
+	
+	</div>
+	<div class="box-tommorow">
+		
+			<span id="label-tommorow">Tommorow</span>
+		
+		<div id="style-tommorow"></div>
+		</div>
+	 <div class="box-junkiree">
+
+	<a href="junkiree-schedule.html#group1" target="_blank"><div class="label-pages left">Schedules</div></a>
+	<a href="junkiree-schedule.html#options" target="_blank"><div class="label-pages right">Options</div></a>
+	</ul>
+	</div>
+</div>
+ 
+</body>
+</html>

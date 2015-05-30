@@ -1,0 +1,35 @@
+@font-face {
+  font-family: 'roboto-thin';
+  font-weight: normal;
+  src: url(../fonts/roboto-thin.ttf);
+  src: local ('Ø'),
+  url(../fonts/roboto-thin.ttf) format('ttf');
+}
+
+
+@font-face {
+  font-family: 'source-sans';
+  font-weight: normal;
+  src: url(../fonts/SourceSansPro-Regular.otf);
+  src: local ('Ø'),
+  url(../fonts/SourceSansPro-Regular.otf) format('otf');
+}s
+
+
+@font-face {
+  font-family: 'Montserrat-Hairline';
+  font-weight: normal;
+  src: url(../fonts/Montserrat-Hairline.otf);
+  src: local ('Ø'),
+  url(../fonts/Montserrat-Hairline.otf) format('otf');
+}
+
+@font-face {
+  font-family: 'source-sans';
+  font-weight: normal;
+  src: url(../fonts/SourceSansPro-Regular.otf);
+  src: local ('Ø'),
+  url(../fonts/SourceSansPro-Regular.otf) format('otf');
+}
+
+
