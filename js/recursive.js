@@ -22,6 +22,7 @@ notifDict = {'t1': 900000, 't2':1800000, 't3':3600000}
 
 
 console.log('It\'s alive')
+//chrome.tabs.create({'url':'first-run.html','selected':true});
 function recursive(){
    console.log('Stormborn')
     

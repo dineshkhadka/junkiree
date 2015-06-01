@@ -147,8 +147,8 @@ function init()
 		jkParseRemoteSchedule(jkScheduleURL);
 		
 	   }
-	localStorage.setItem('lastUpdate',DateObject.getDay())
-    console.log('Today is: '+DateObject.getDay())
+	localStorage.setItem('lastUpdate', DateObject.getDay())
+    console.log('Today is: ' + DateObject.getDay())
     
 	}
 	else{
