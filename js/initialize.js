@@ -138,8 +138,8 @@ function init()
 				}
 	
        
-		var g = chrome.extension.getBackgroundPage()
-			//g.recursive()
+		
+		
 	   // Check update Once a day
 	   
 	if (localStorage.getItem('jkAutoUpdate') == 'true' && localStorage.getItem('lastUpdate') != DateObject.getDay()){

@@ -287,7 +287,9 @@ function readForm(ev){
         
     }
     
-    
+    chrome.runtime.getBackgroundPage(function (backgroundPage) {
+                backgroundPage.recursive(); 
+              });
 }
 
 
