@@ -373,5 +373,8 @@ notifDict = {'t1': 900000, 't2':1800000, 't3':3600000}
   - Gets the time remaining in milliseconds
   - Sets that as the timeout
   - Once time runs out, it fires a callback and the recursion kickstarts. Which then refreshes everything
+  made some changes
+  
+
 */
 
