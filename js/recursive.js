@@ -21,11 +21,11 @@ notifDict = {'t1': 900000, 't2':1800000, 't3':3600000}
 
 
 
-
+console.log('It\'s alive')
 function recursive(){
    console.log('Stormborn')
-    if (localStorage.jkScheduleJSON != null){
-        clea
+    
+        
         var Ghadi = new Date();
         var thisInstant = jkToMilliseconds(Ghadi.getHours()+':'+Ghadi.getMinutes()+':'+Ghadi.getSeconds());
         var filterTime = jkTimeStatus(thisInstant, jkMillify());
@@ -44,11 +44,13 @@ function recursive(){
         console.log("Delorean: "+ deLorean)
         console.log(notifDict[before])
         //
-
+        var msgTemplate = jkFartSparkles(notifDict[before])[1] + ' Minutes left till'
+        msgTemplate += (filterTime[3] == true) ? ' power on': ' power off';
+        console.log(msgTemplate)
         if (thisInstant > deLorean){
             // Sleep until power on/off and restart the function
-            //setTimeout(recursive, timetick);
-            setTimeout(recursive, 4000);
+            setTimeout(recursive, timetick);
+            //setTimeout(recursive, 4000);
             hideForNow = true;
             console.log("Fartsparkles timeticked:"+ jkFartSparkles(timetick))
 
@@ -56,26 +58,24 @@ function recursive(){
 
         else{
             if (hideForNow == false){
-                jkNotifyUser('Title', 'img/bulb-on.png', jkFartSparkles(timetick)+' and'+ timetick);
+                
+                //jkNotifyUser('Junkiree', 'img/bulb-on.png', jkFartSparkles(timetick)+' and'+ timetick);
+                
+                jkNotifyUser('Junkiree', 'img/bulb-on.png', msgTemplate);
+
               }
-            //setTimeout(recursive, deLorean)
-            setTimeout(recursive, 3000);
+            setTimeout(recursive, deLorean)
+            //setTimeout(recursive, 3000);
             console.log("Fartsparkles Delorean:"+ jkFartSparkles(deLorean))
             hideForNow = false;
             }
-    }
-    else{
-        // The code below restarts `recursive()` after 30 seconds to recheck if the settings have been set
-        // This basically assumes the user is going to download the settings.
-        // TODO: Find a cleaner way to check for the settings
-        console.log('It ain\'t nothin\'')
-        setTimeout(recursive, 30000);
-
-    }
+   
 }
 
 
 
 
 
-//recursive()
+if (localStorage.jkScheduleJSON != null){
+    recursive()
+}
