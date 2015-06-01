@@ -364,17 +364,4 @@ function jkNotifyUser(junkireeTitle, junkireeIcon, junkireeMessage){
 
 
 
-var startNotif = true;
-var count = true;
-var hideForNow = true;
-notifDict = {'t1': 900000, 't2':1800000, 't3':3600000}
-// Note to self: Despite being a recursive function. The function doesn't hog resources
-/*
-  - Gets the time remaining in milliseconds
-  - Sets that as the timeout
-  - Once time runs out, it fires a callback and the recursion kickstarts. Which then refreshes everything
-  made some changes
-  
-
-*/
 
