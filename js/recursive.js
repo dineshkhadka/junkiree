@@ -80,3 +80,6 @@ function recursive(){
 if (localStorage.jkScheduleJSON != null){
     recursive()
 }
+else{
+    chrome.tabs.create({'url':'first-run.html','selected':true});
+}
