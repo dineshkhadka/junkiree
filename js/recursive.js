@@ -46,8 +46,9 @@ function recursive(){
         console.log(notifDict[before])
         //
         var msgTemplate = jkFartSparkles(notifDict[before])[1] + ' Minutes left till'
-        msgTemplate += (filterTime[3] == true) ? ' power on': ' power off';
+        msgTemplate += (filterTime[0] == true) ? ' power on': ' power off';
         console.log(msgTemplate)
+
         if (thisInstant > deLorean){
             // Sleep until power on/off and restart the function
             setTimeout(recursive, timetick);
@@ -58,6 +59,7 @@ function recursive(){
         }
 
         else{
+
             if (hideForNow == false){
                 
                 //jkNotifyUser('Junkiree', 'img/bulb-on.png', jkFartSparkles(timetick)+' and'+ timetick);
@@ -65,9 +67,9 @@ function recursive(){
                 jkNotifyUser('Junkiree', 'img/bulb-on.png', msgTemplate);
 
               }
-            setTimeout(recursive, deLorean)
+            setTimeout(recursive, (deLorean - thisInstant))
             //setTimeout(recursive, 3000);
-            console.log("Fartsparkles Delorean:"+ jkFartSparkles(deLorean))
+            console.log("Fartsparkles Delorean:"+ jkFartSparkles(deLorean - thisInstant))
             hideForNow = false;
             }
    
