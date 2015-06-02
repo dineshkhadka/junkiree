@@ -27,10 +27,7 @@ for (var itemIndex = 0; itemIndex < 6; itemIndex++){
         
 }
 
-if (localStorage.getItem('jkScheduleJSON') == undefined){
-  //Assume this is first run and launch the page
-  chrome.tabs.create({'url':'first-run.html','selected':true});
-}
+
 
 var DateObject = new Date();
 var GroupIndex = localStorage.getItem('jkOptionCurrentGroupIndex');
