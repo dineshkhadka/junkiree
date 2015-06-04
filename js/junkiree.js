@@ -37,7 +37,7 @@ var jkDefGroup = jkGroupArray[GroupIndex];
 var jkDayPrefix = jkDayArray[jkDayIndex];
 
 var NextDayIndex = (jkDayIndex == 6) ? 0: jkDayIndex + 1;
-var jkNextDayIndex = jkDayArray[NextDayIndex];
+var jkNextDayPreFix = jkDayArray[NextDayIndex];
 
 
 
