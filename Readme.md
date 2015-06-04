@@ -1,5 +1,8 @@
 # Junkiree
 
+
+![alt text](http://dineshkhadka.github.io/img/screenshot1.png "Junkiree Screenshot")
+
 Free and open source loadshedding viewer for chrome and other webkit browsers like [Opera](https://opera.com). Visit the [project website](http://dineshkhadka.github.io) for screenshots and features.
 
 
@@ -12,7 +15,7 @@ Free and open source loadshedding viewer for chrome and other webkit browsers li
 
 # Installation
 
-Since the app is in beta, no releases have been made as of now. However, only working code is pushed to the github repo. Curious devs can grab the Junkiree's [Github Archive](https://github.com/dineshkhadka/junkiree/archive/master.zip)
+Since the app is in beta, no releases have been made as of now. However, only working code is pushed to the github repo. Curious devs can grab the Junkiree's [Github Archive](https://github.com/dineshkhadka/junkiree/archive/master.zip) extract it and install it using the `Load unpacked Extension` from `chrome > Extensions`.
 
 # Credits
 
