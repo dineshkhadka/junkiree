@@ -17,6 +17,7 @@ Since the app is in beta, no releases have been made as of now. However, only wo
 # Credits
 
 Junkiree uses the following libraries:
-*[NepToEngDateConverter](https://github.com/prashishh/NepToEngDateConverter)
-*[jQuery Knob](https://github.com/aterrien/jQuery-Knob)
-*[jQuery](https://jquery.com)
+
+* [NepToEngDateConverter](https://github.com/prashishh/NepToEngDateConverter)
+* [jQuery Knob](https://github.com/aterrien/jQuery-Knob)
+* [jQuery](https://jquery.com)
