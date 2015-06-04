@@ -16,4 +16,4 @@ Junkiree requires a mordern browser to run. It's tested to run in:
 # Installation
 ------
 
-Since the app is in beta, no releases have been made as of now. However, only working code is pushed to the github repo. Curious devs can grab the Junkiree's [Github Archive](https://github.
+Since the app is in beta, no releases have been made as of now. However, only working code is pushed to the github repo. Curious devs can grab the Junkiree's [Github Archive](https://github.com/dineshkhadka/junkiree/archive/master.zip)
