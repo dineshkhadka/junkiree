@@ -37,7 +37,7 @@ var jkDefGroup = jkGroupArray[GroupIndex];
 var jkDayPrefix = jkDayArray[jkDayIndex];
 
 var NextDayIndex = (jkDayIndex == 6) ? 0: jkDayIndex + 1;
-var jkNextDayPrefix = jkDayArray[NextDayIndex];
+var jk = jkDayArray[NextDayIndex];
 
 
 
@@ -90,7 +90,7 @@ try{
             passMessage = 'A schedule has been downloaded';
         }
 
-        jkNotifyUser('Schedule Updater', 'img/bulb-on.png', passMessage)
+        jkNotifyUser('Schedule Updater', 'img/bulb-on.png', passMessage);
           });
 
       }); //end
@@ -268,7 +268,7 @@ function jkTimeStatus(c,b){
             
             // This below outputs the tme left till the first powercut of the next day
             // 86400000 equals 24:00
-            content = [false,   b[b.length-1], jkMillify(jkGetSchedule(jkDefGroup, jkNextDayPrefix))[0]+86400000];
+            content = [false,   b[b.length-1], jkMillify()[0]+86400000];
         }
         
         
@@ -285,11 +285,9 @@ function jkTimeStatus(c,b){
             content = [false, b[t+1], b[t+2]];
         }
     /*
-    
-        * if content[0] is true the power is currently off, if false the power is on. 
-        * content[1] is the starting point and content[2] is the ending point.
-    
-    */
+     * if content[0] is true the power is currently off, if false the power is on. 
+     * content[1] is the starting point and content[2] is the ending point.
+     */
    
     }
     return content; 
@@ -305,7 +303,7 @@ function jkMillify(){
     for (list in range){
         _scheduleToMs[list] = jkToMilliseconds(range[list]);
         }
-return _scheduleToMs;   
+    return _scheduleToMs;   
 }
 
 
@@ -335,9 +333,7 @@ function remaining(){
     } 
     
     chewOnThis +=  timeLeft[1]+' Minutes';
- 
- 
- return chewOnThis;
+    return chewOnThis;
                 
 }
 
