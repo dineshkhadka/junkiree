@@ -46,7 +46,8 @@ var even = 0;
 var dash = 0;   
 
 
-var jkScheduleURL = 'schedule.json';
+//var jkScheduleURL = 'schedule.json';
+var jkScheduleURL = 'https://cdn.rawgit.com/dineshkhadka/junkiree/master/schedule.json';
 var passMessage;
 function jkParseRemoteSchedule(jkJSONUrl, jkShowNotif){
     
