@@ -1,6 +1,6 @@
 # Junkiree
 
-Free and open source loadshedding viewer for chrome and other webkit browsers. Including: [Opera](https://opera.com) and [chromium](http://chromiumproject.org). Visit the [project website](http://dineshkhadka.github.io) for screenshots and features.
+Free and open source loadshedding viewer for chrome and other webkit browsers like [Opera](https://opera.com). Visit the [project website](http://dineshkhadka.github.io) for screenshots and features.
 
 
 # Requirements
