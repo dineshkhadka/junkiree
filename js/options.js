@@ -59,9 +59,11 @@ function jkPanelToggle(toggleID){
 
 
 function jkSeekHash(){
-    //window.scrollTo(0,0)
+    
     var getHash = window.location['hash'];
-    var hashSchedules = /(\group)\d/i ; // confirms that the hash is an accepted format and ignores the extra '#'
+
+    // confirms that the hash is an accepted format and ignores the extra '#'
+    var hashSchedules = /(\group)\d/i ; 
     
     if (getHash == '#help'){
         jkPanelToggle(2);
@@ -187,12 +189,9 @@ function initSetting(){
 
 
 function jkSuccessMessage(content){
-    
-    
     msg.innerHTML = content;
-    
-    
 }
+
 function readForm(ev){
     msg.classList.remove('hide');
     var agroup = document.getElementById('option-group').value;
@@ -210,7 +209,7 @@ function readForm(ev){
     }
     else if (ev == 'updateChanged'){
         
-        /*  Note to Self: Radio buttons will not work like this at all cases
+        /*  Note to Self: Radio buttons will not work like this in all cases
                 - This is just a workaround
                 - The form below has two radio buttons.
                 - It checks if the first radio is checked.

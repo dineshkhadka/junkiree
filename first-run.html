@@ -8,128 +8,115 @@
 <style type="text/css">
    
 body{
-   margin: 0;
-   }
+    margin: 0;
+ }
 
 .banner{
-font-size: 16px;
-color: white;
-padding-top: 2%;
-padding-left: 3%;
-padding-right: 3%;
-padding-bottom: 1%;
-background: url("img/banner.jpg") no-repeat 0px 0px / cover transparent;
-/*background-color: #D2CFCF;*/
-height: 150px;
-text-align: center;
-font-family: sans-serif, verdana;
+    font-size: 16px;
+    color: white;
+    padding-top: 2%;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-bottom: 1%;
+    background: url("img/banner.jpg") no-repeat 0px 0px / cover transparent;
+    /*background-color: #D2CFCF;*/
+    height: 150px;
+    text-align: center;
+    font-family: sans-serif, verdana;
 
 }
 .junkiree{
-
-font-size: 52px;
-font-family: roboto-thin;
-color: #fff5e2;
+    font-size: 52px;
+    font-family: roboto-thin;
+    color: #fff5e2;
 }
 
-.container{
 
-
-
-
-}
 .thanks{
-
-font-size: 2.5em;
-font-family: roboto-thin;
-text-align: center;
+    font-size: 2.5em;
+    font-family: roboto-thin;
+    text-align: center;
 }
-.allset{
 
-font-size: 4em;
-font-family: roboto-thin;
-text-align: center;
+.allset{
+    font-size: 4em;
+    font-family: roboto-thin;
+    text-align: center;
 }
 .group-box{
-margin-top: 5%;
-margin-left: auto;
-margin-right: auto;
-
-
-
-width: 500px;
-height: 80px;
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    height: 80px;
 }
 
 
 select{
-width: 100%;
-height: 100%;
-font-family: segoe ui;
-text-align: center;
-font-size: 1.5em;
-background-color: #3cf;
-border-radius: 10px;
-
-
+    width: 100%;
+    height: 100%;
+    font-family: segoe ui;
+    text-align: center;
+    font-size: 1.5em;
+    background-color: #3cf;
+    border-radius: 10px;
 }
+
 select option{
-
-
-background-color: #dadada;
+    background-color: #dadada;
 }
+
 .h3{
-
-font-size: 4em;
-
+    font-size: 4em;
 }
+
 .tip{
-text-align: center;
-font-size: 12px;
-color: gray;
-font-family: helvetica;
-margin: 0;
-
+    text-align: center;
+    font-size: 12px;
+    color: gray;
+    font-family: helvetica;
+    margin: 0;
 }
-   </style>
+
+</style>
   
   
 </head>
 
 <body>
 
-<div class="banner">
-<span class="junkiree">
-Junkiree
-</span>
+    <div class="banner">
+        <span class="junkiree">
+                Junkiree
+        </span>
+        <br>
+                Loadshedding Schedule viewer.
+    </div>
+
+
+    <div class="container">
+        <h1 class="thanks">
+                Thank You for installing junkiree. Please select your group.
+        </h1>
+
+    <div id="main" class="group-box">
+        <select id="group">
+            <option value="null" style="text-align:center;">Click To Select</option>
+            <option value="1">Group 1</option>
+            <option value="2">Group 2</option>
+            <option value="3">Group 3</option>
+            <option value="4">Group 4</option>
+            <option value="5">Group 5</option>
+            <option value="6">Group 6</option>
+            <option value="7">Group 7</option>
+
+        </select>
+
+    </div>
 <br>
-Loadshedding Schedule viewer.
-</div>
-
-
-<div class="container">
-<h1 class="thanks">
-Thank You for installing junkiree. Please select your group.
-</h1>
-
-<div id="main" class="group-box">
-<select id="group">
-<option value="null" style="text-align:center;">Click To Select</option>
-<option value="1">Group 1</option>
-<option value="2">Group 2</option>
-<option value="3">Group 3</option>
-<option value="4">Group 4</option>
-<option value="5">Group 5</option>
-<option value="6">Group 6</option>
-<option value="7">Group 7</option>
-
-</select>
-
-</div>
-<br>
-<div class="tip">
-Default group can be changed later from the Options page.
-</div>
+    <div class="tip">
+        Default group can be changed later from the Options page.
+    </div>
 
 
 

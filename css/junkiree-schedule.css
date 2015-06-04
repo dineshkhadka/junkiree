@@ -109,7 +109,7 @@ border: 1px solid #c0c0c0;
 
  small{
 
- 	fonr-family: monospace;
+ 	font-family: monospace;
 
  }
  /* Styles for classes*/
@@ -227,6 +227,7 @@ border: 1px solid #c0c0c0;
  
  
  }
+ 
 /* Styles for IDs*/
 #group-selector{
 	background-color: #69DA95;

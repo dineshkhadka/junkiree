@@ -1,4 +1,10 @@
+/*
 
+Junkiree v3.5.1
+Copyright (C) 2015 by Dinesh Khadka [http://junkiree.github.io]
+
+
+*/
 
 function setOptions(){
       var idGroup = document.getElementById("group")
@@ -17,7 +23,7 @@ function setOptions(){
            //				AQ1W
            idMain.innerHTML = "<h1 class=\"allset\">All set!</h1>"
            chrome.runtime.getBackgroundPage(function (backgroundPage) {
-                backgroundPage.recursive(); // Displays "mooh".
+                backgroundPage.recursive(); 
               });
           }
        catch(ex){
