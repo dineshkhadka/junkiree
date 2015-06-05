@@ -47,7 +47,7 @@ var dash = 0;
 
 
 //var jkScheduleURL = 'schedule.json';
-var jkScheduleURL = 'https://cdn.rawgit.com/dineshkhadka/junkiree/master/schedule.json';
+var jkScheduleURL = 'https://rawgit.com/dineshkhadka/junkiree/master/schedule.json';
 var passMessage;
 function jkParseRemoteSchedule(jkJSONUrl, jkShowNotif){
     
@@ -56,21 +56,10 @@ try{
         $.getJSON(jkJSONUrl).done( function(jkData) {
         var jkArrayToString = JSON.stringify(jkData);
 
-        //
+        console.log(jkData)
         var issueId = jkData['issued']['issueId'];
         if (localStorage.getItem('jkScheduleJSON')!= undefined){
-            
-
-            /* 
-                We make Use of issueId vs comparing the current date with the schedule release date.
-                If there is any mistake in the schedules hosted in the server. Comparing it with
-                the relese date will be problematic.
-
-                If any mistakes are made in the server's schedules setting a new issueId and keeping the release dates intact is
-                is easier. Then junkiree will consider it a new schedule it and update the database.
-                IssueId can be a random number as well.
-
-            */
+           
             if (jkGetSchedule('issued','issueId') != issueId){
                   localStorage.setItem('jkScheduleJSON', jkArrayToString);
                   passMessage = 'A new schedule has been found and updated';
