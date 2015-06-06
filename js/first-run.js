@@ -17,7 +17,9 @@ function setOptions(){
       localStorage.setItem("jkMilitary", "true" )
   
       try{
-	         jkParseRemoteSchedule(jkScheduleURL)
+	         //jkParseRemoteSchedule(jkScheduleURL)
+           // Local schedules are read quicker. 
+           jkParseRemoteSchedule('schedule.json')
            localStorage.setItem("jkOptionCurrentGroupIndex", getGroupValue )
            //  My dog rest his face on the keyboard and typed this: 
            //				AQ1W
@@ -27,7 +29,7 @@ function setOptions(){
               });
           }
        catch(ex){
-           idMain.innerHTML = "<h1 class=\"allset\">Error installing:<br>"+ex+"<br> Please retry</h1>"
+           idMain.innerHTML = "<h1 class=\"allset\">Error installing: <br>"+ex+"<br> Please retry</h1>"
           }
        // This message will self-destruct in 3 seconds
        setTimeout(function(){ window.close()}, 3000)
