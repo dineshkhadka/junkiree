@@ -29,24 +29,43 @@ for (var itemIndex = 0; itemIndex < 6; itemIndex++){
 
 
 
+
+
 var DateObject = new Date();
-var GroupIndex = localStorage.getItem('jkOptionCurrentGroupIndex');
-
-var jkDayIndex = DateObject.getDay();
-var jkDefGroup = jkGroupArray[GroupIndex];
-var jkDayPrefix = jkDayArray[jkDayIndex];
-
-var NextDayIndex = (jkDayIndex == 6) ? 0: jkDayIndex + 1;
-var jkNextDayPrefix = jkDayArray[NextDayIndex];
+var remind = function(){
+                      return new Date().getDay()
+                      }
 
 
+var dataList = function (){
+  return {
+    GroupIndex : localStorage.jkOptionCurrentGroupIndex,
+    jkDayIndex : remind(),
+    jkDayPrefix : jkDayArray[remind()],
 
+    jkDefGroup : function (){
+                      return jkGroupArray[this.GroupIndex]
+                    },
+    NextDayIndex : function (){
+                      return (this.jkDayIndex == 6) ? 0: this.jkDayIndex + 1
+                    },
+    jkNextDayPrefix : function (){
+                      return jkDayArray[this.NextDayIndex()]
+                    }
+  };
+
+}
+
+
+
+console.log(dataList())
 var start;
 var even = 0;
 var dash = 0;   
 
 
 //var jkScheduleURL = 'schedule.json';
+//var jkScheduleURL = 'https://cdn.rawgit.com/dineshkhadka/junkiree/master/schedule.json';
 var jkScheduleURL = 'https://rawgit.com/dineshkhadka/junkiree/master/schedule.json';
 var passMessage;
 function jkParseRemoteSchedule(jkJSONUrl, jkShowNotif){
@@ -55,12 +74,9 @@ try{
    $(document).ready(function() { //start
         $.getJSON(jkJSONUrl).done( function(jkData) {
         var jkArrayToString = JSON.stringify(jkData);
-
-        console.log(jkData)
         var issueId = jkData['issued']['issueId'];
         if (localStorage.getItem('jkScheduleJSON')!= undefined){
-           
-            if (jkGetSchedule('issued','issueId') != issueId){
+           if (jkGetSchedule('issued','issueId') != issueId){
                   localStorage.setItem('jkScheduleJSON', jkArrayToString);
                   passMessage = 'A new schedule has been found and updated';
             }
@@ -69,11 +85,8 @@ try{
                if (jkShowNotif != undefined ){
 
                 passMessage = 'Your schedules are up to date';
-
-               }
-
-               
-            }
+              }
+              }
         }
         else{
             localStorage.setItem('jkScheduleJSON', jkArrayToString);
@@ -161,11 +174,10 @@ function jkDashify(_grp, _dte){
                 var toSplit = _jkCurSch.split(':');
                     
                 if (toSplit[0]>12){
-  
                         toSplit[0] -= 12;
                         toSplit[1] += ' PM'
                         var addZero = (toSplit[0]<10) ? '0': ''; 
-                        toSplit[0] = addZero+toSplit[0];
+                        toSplit[0] = addZero + toSplit[0];
                         // Hours greater than 12 are substracted and result in a single digit integer ie '7'. Add 0 before them.
                     }
                 else{
@@ -289,7 +301,7 @@ var curMS = jkToMilliseconds(DateObject.getHours()+':'+DateObject.getMinutes()+'
         
 function jkMillify(){
     var _scheduleToMs = [];      
-    range = jkGetSchedule(jkDefGroup, jkDayPrefix);
+    range = jkGetSchedule(dataList().jkDefGroup(), dataList().jkDayPrefix);
     for (list in range){
         _scheduleToMs[list] = jkToMilliseconds(range[list]);
         }
