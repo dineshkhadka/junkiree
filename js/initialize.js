@@ -28,8 +28,9 @@ function init()
 				
 				
 				// Initialize the current Day
+				
 				var jkSetToday = document.getElementById('style-today');
-				jkSetToday.innerHTML += jkFullDayArray[jkDayIndex];
+				jkSetToday.innerHTML += jkFullDayArray[dataList().jkDayIndex];
 				// end
 				
 				
@@ -57,11 +58,11 @@ function init()
 				jkSetCurTime.innerHTML += thisHour+':'+addZero+thisMinute+whatsItsName;
 					
 				var jkSetGroup = document.getElementById('style-group');
-				jkSetGroup.innerHTML += jkGetSchedule(jkDefGroup, 'title');
+				jkSetGroup.innerHTML += jkGetSchedule(dataList().jkDefGroup(), 'title');
 				
 	
-				jkAppendTimes('style-tommorow', jkDefGroup, jkNextDayPrefix);
-				jkAppendTimes('style-times', jkDefGroup, jkDayPrefix);
+				jkAppendTimes('style-tommorow', dataList().jkDefGroup(), dataList().jkNextDayPrefix());
+				jkAppendTimes('style-times', dataList().jkDefGroup(), dataList().jkDayPrefix);
 				
 				if (isMilitary=='false'){
 					document.getElementById('style-times').classList.add('meridian-today');
