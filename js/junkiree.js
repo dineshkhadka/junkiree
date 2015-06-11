@@ -42,7 +42,6 @@ var dataList = function () {
         GroupIndex: localStorage.jkOptionCurrentGroupIndex,
         jkDayIndex: remind(),
         jkDayPrefix: jkDayArray[remind()],
-
         jkDefGroup: function () {
             return jkGroupArray[this.GroupIndex];
         },
