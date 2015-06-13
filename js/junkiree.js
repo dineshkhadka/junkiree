@@ -192,8 +192,10 @@ var isMilitary = localStorage.getItem('jkMilitary');
     // Arguments and variables below these are not prefixed with jk because these were merged into junkiree.js from scheduler.js
     function jkAppendTimes(identification, grp, dte) {
         $(document).ready(function () {
-            var jkSetTime = document.getElementById(identification);
-            jkSetTime.innerHTML += jkDashify(grp, dte);
+
+            $('#'+identification).html('<br>'+jkDashify(grp, dte));
+            //var jkSetTime = document.getElementById(identification);
+            //jkSetTime.innerHTML += jkDashify(grp, dte);
 
         });
     }
@@ -303,16 +305,15 @@ var powerStatus = jkTimeStatus(curMS, jkMillify());
 
 function remaining() {
     var chewOnThis;
-    var sdate = document.getElementById('style-remaining');
-    timeLeft = jkFartSparkles(powerStatus[2] - curMS);
 
+    timeLeft = jkFartSparkles(powerStatus[2] - curMS);
     if (powerStatus[0] == true) {
-        sdate.classList.remove('powerOn');
-        sdate.classList.add('powerOff');
+        $('#style-remaining').removeClass('powerOn');
+        $('#style-remaining').addClass('powerOff');
         chewOnThis = 'Time till power on: ';
     } else if (powerStatus[0] == false) {
-        sdate.classList.add('powerOn')
-        sdate.classList.remove('powerOff')
+        $('#style-remaining').addClass('powerOn');
+        $('#style-remaining').removeClass('powerOff');
         chewOnThis = 'Time till power off: '
     }
 
