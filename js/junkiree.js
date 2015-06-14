@@ -194,8 +194,6 @@ var isMilitary = localStorage.getItem('jkMilitary');
         $(document).ready(function () {
 
             $('#'+identification).html('<br>'+jkDashify(grp, dte));
-            //var jkSetTime = document.getElementById(identification);
-            //jkSetTime.innerHTML += jkDashify(grp, dte);
 
         });
     }
