@@ -42,15 +42,14 @@ function jkPanelToggle(toggleID) {
     var panelHelp = document.getElementById('help-panel');
     var groupSelector = document.getElementById('group-selector');
 
-
-    for (var pageIndex = 0; pageIndex < pageSelector.length; pageIndex++) {
-        if (pageIndex != toggleID) {
-            pageSelector[pageIndex].classList.remove('currentPanel');
+    $("#page-selector li").each(function(i, el) {
+        if (i != toggleID) {
+            $(this).removeClass('currentPanel');
         } else {
-            pageSelector[pageIndex].classList.add('currentPanel');
+            $(this).addClass('currentPanel');
         }
-
-    }
+    });
+            
 
     if (toggleID == 0) {
         panelSchedule.classList.remove('hide');
@@ -97,26 +96,23 @@ function jkSeekHash() {
 
         // seek and destroy class='current' from all the li tags
 
-        var classindex = document.getElementById('group-selector').getElementsByTagName('li'); //[cindex].classList.remove('current')
-        for (var f = 0; f < 7; f++) {
-            if (classindex != null) {
-                classindex[f].classList.remove('current');
+        $("#group-selector li").each(function(i, el) {
+            if ($(this) != null) {
+                $(this).removeClass('current');
             }
-        }
-        document.getElementById(classDict[matchGroup]).classList.add('current');
+        });
+
+        $('#'+classDict[matchGroup]).addClass('current')
+      
     }
 
 }
 
 function jkListSchedules(group) {
     for (var suru = 0; suru < jkDayArray.length; suru++) {
-        var setContent = document.getElementById(jkDayArray[suru]);
-        setContent.innerHTML = ''; //recycle the schedule-panel.
-        setContent.innerHTML = jkDashify(group, jkDayArray[suru]);
+        $('#'+jkDayArray[suru]).html(jkDashify(group, jkDayArray[suru]));
+
     }
-
-
-
 }
 
 var optionGroup = document.getElementById('option-group');
@@ -148,13 +144,13 @@ function initSetting() {
     var thisNotif = optionNotif.getElementsByTagName('input');
 
 
-    //  Notification time -
+    //  Notification time
     var storageNotifTime = localStorage.getItem('jkNotifyID');
     var locateNotifTime = optionNotifTime.value;
     var thisNotifTime = optionNotifTime.getElementsByTagName('option');
 
 
-    //  Meridian or Military -
+    //  Meridian or Military
     var storageMilitaryTime = localStorage.getItem('jkMilitary');
     var thisMilitaryTime = optionMilitaryTime.getElementsByTagName('input');
 
@@ -279,7 +275,7 @@ function readForm(ev) {
         } catch (ex) {
             alert('There has been an error setting the option.\n' + ex);
         }
-        window.location.reload(); //The window requires a refresh inorder apply the changes
+        window.location.reload(); //The window requires a refresh in order apply the changes
 
     }
 
