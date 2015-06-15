@@ -39,7 +39,7 @@ console.log('It\'s alive');
 
 
 
-function recursive() {
+var recursive = function() {
     console.log('Stormborn');
 
 
@@ -95,9 +95,16 @@ function recursive() {
 
 if (localStorage.jkScheduleJSON != null) {
     recursive()
+    if (localStorage.getItem('jkAutoUpdate') == 'true' && localStorage.getItem('lastUpdate') != DateObject.getDay()) {
+
+            jkParseRemoteSchedule(jkScheduleURL);
+            localStorage.setItem('lastUpdate', DateObject.getDay());
+
+        }
 } else {
     chrome.tabs.create({
         'url': 'first-run.html',
         'selected': true
     });
+
 }
