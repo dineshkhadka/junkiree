@@ -5,7 +5,6 @@ Copyright (C) 2015 by Dinesh Khadka [http://junkiree.github.io]
 
 
 */
-
 classDict = {
     'group1': 'g1',
     'group2': 'g2',
@@ -49,7 +48,7 @@ function jkPanelToggle(toggleID) {
             $(this).addClass('currentPanel');
         }
     });
-            
+
 
     if (toggleID == 0) {
         panelSchedule.classList.remove('hide');
@@ -91,26 +90,23 @@ function jkSeekHash() {
         var matchGroup = getHash.match(hashSchedules)[0];
         jkPanelToggle(0);
         jkListSchedules(matchGroup);
-
-
-
-        // seek and destroy class='current' from all the li tags
-
-        $("#group-selector li").each(function(i, el) {
+    
+    // seek and destroy class='current' from all the li tags
+    $("#group-selector li").each(function(i, el) {
             if ($(this) != null) {
                 $(this).removeClass('current');
             }
-        });
+    });
 
-        $('#'+classDict[matchGroup]).addClass('current')
-      
+    $('#' + classDict[matchGroup]).addClass('current')
+
     }
 
 }
 
 function jkListSchedules(group) {
     for (var suru = 0; suru < jkDayArray.length; suru++) {
-        $('#'+jkDayArray[suru]).html(jkDashify(group, jkDayArray[suru]));
+        $('#' + jkDayArray[suru]).html(jkDashify(group, jkDayArray[suru]));
 
     }
 }
@@ -279,31 +275,31 @@ function readForm(ev) {
 
     }
 
-    chrome.runtime.getBackgroundPage(function (backgroundPage) {
-        backgroundPage.recursive();
+    chrome.runtime.getBackgroundPage(function(backgroundPage) {
+        backgroundPage.recursive(true);
     });
 }
 
 
 
 // Listen if the user changes any of the settings
-optionGroup.addEventListener('change', function () {
+optionGroup.addEventListener('change', function() {
     readForm('groupChanged');
 });
-optionUpdate.addEventListener('change', function () {
+optionUpdate.addEventListener('change', function() {
     readForm('updateChanged');
 });
-optionNotif.addEventListener('change', function () {
+optionNotif.addEventListener('change', function() {
     readForm('notifChanged');
 });
-optionNotifTime.addEventListener('change', function () {
+optionNotifTime.addEventListener('change', function() {
     readForm('notifTimeChanged');
 });
-optionMilitaryTime.addEventListener('change', function () {
+optionMilitaryTime.addEventListener('change', function() {
     readForm('militaryChanged');
 });
 
-updateClick.addEventListener('click', function () {
+updateClick.addEventListener('click', function() {
     jkParseRemoteSchedule(jkScheduleURL, true);
 });
 

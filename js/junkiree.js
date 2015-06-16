@@ -193,7 +193,7 @@ var isMilitary = localStorage.getItem('jkMilitary');
     function jkAppendTimes(identification, grp, dte) {
         $(document).ready(function () {
 
-            $('#'+identification).html('<br>'+jkDashify(grp, dte));
+            $('#'+identification).append(jkDashify(grp, dte));
 
         });
     }

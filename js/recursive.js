@@ -39,7 +39,7 @@ console.log('It\'s alive');
 
 
 
-var recursive = function() {
+var recursive = function(noMessage) {
     console.log('Stormborn');
 
 
@@ -74,12 +74,11 @@ var recursive = function() {
     } else {
 
         if (hideForNow == false) {
-
-            //jkNotifyUser('Junkiree', 'img/bulb-on.png', jkFartSparkles(timetick)+' and'+ timetick);
-
-            jkNotifyUser('Junkiree', 'img/bulb-on.png', msgTemplate);
-
+            if (noMessage != true){
+                 jkNotifyUser('Junkiree', 'img/bulb-on.png', msgTemplate);
         }
+        }
+        
         timer = setTimeout(recursive, (deLorean - thisInstant));
         timerStarted = true;
         //setTimeout(recursive, 3000);
