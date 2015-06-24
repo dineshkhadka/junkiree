@@ -5,6 +5,13 @@
   src: local ('Ø'),
   url(../fonts/roboto-thin.ttf) format('ttf');
 }
+@font-face {
+  font-family: 'Roboto';
+  font-weight: normal;
+  src: url(../fonts/Roboto-Regular.ttf);
+  src: local ('Ø'),
+  url(../fonts/Roboto-Regular.ttf) format('ttf');
+}
 
 
 @font-face {
@@ -13,8 +20,15 @@
   src: url(../fonts/SourceSansPro-Regular.otf);
   src: local ('Ø'),
   url(../fonts/SourceSansPro-Regular.otf) format('otf');
-}s
+}
 
+@font-face {
+  font-family: 'source-light';
+  font-weight: normal;
+  src: url(../fonts/SourceSansPro-ExtraLight.otf);
+  src: local ('Ø'),
+  url(../fonts/SourceSansPro-ExtraLight.otf) format('otf');
+}
 
 @font-face {
   font-family: 'Montserrat-Hairline';
