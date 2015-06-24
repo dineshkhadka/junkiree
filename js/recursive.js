@@ -64,10 +64,8 @@ var recursive = function(noMessage) {
     console.log(msgTemplate);
 
     if (thisInstant > deLorean) {
-        // Sleep until power on/off and restart the function
         var timer = setTimeout(recursive, timetick);
         timerStarted = true;
-        //setTimeout(recursive, 4000);
         hideForNow = true;
         console.log("Fartsparkles timeticked:" + jkFartSparkles(timetick));
 
@@ -81,7 +79,6 @@ var recursive = function(noMessage) {
         
         timer = setTimeout(recursive, (deLorean - thisInstant));
         timerStarted = true;
-        //setTimeout(recursive, 3000);
         console.log("Fartsparkles Delorean:" + jkFartSparkles(deLorean - thisInstant));
         hideForNow = false;
     }
@@ -94,7 +91,7 @@ var recursive = function(noMessage) {
 
 if (localStorage.jkScheduleJSON != null) {
     recursive()
-    if (localStorage.getItem('jkAutoUpdate') == 'true' && localStorage.getItem('lastUpdate') != DateObject.getDay()) {
+    if (localStorage.jkAutoUpdate == 'true' && localStorage.lastUpdate != DateObject.getDay()) {
 
             jkParseRemoteSchedule(jkScheduleURL);
             localStorage.setItem('lastUpdate', DateObject.getDay());
