@@ -131,7 +131,7 @@ ul li:hover{
 	text-align: center;
 	font-size: 13px;
 	font-family: segoe ui;
-	}
+}
 
 
 #style-times{
@@ -178,13 +178,15 @@ ul li:hover{
 
 #style-today{
  	font-size: 16px;
+ 	float: left;
 
 }
 
 #style-current{
 	font-size: 16px;
-	letter-spacing: .5px;
 	float: right;
+	font-family: roboto-thin;
+	-webkit-font-smoothing: antialiased !important;
 
 }
 
