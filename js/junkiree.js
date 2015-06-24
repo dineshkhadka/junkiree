@@ -20,6 +20,7 @@ var jkGroupArray = ['group1', 'group2', 'group3', 'group4', 'group5', 'group6', 
 // These values are crucial for the app. Check them beforehand to avoid any errors
 var storageKeys = ['jkAutoupdate', 'jkMilitary', 'jkNotify', 'jkNotifyID', 'jkOptionCurrentGroupIndex', 'lastUpdate'];
 var storageValues = ['true', 'true', 'true', 't1', '0', '351'];
+/*
 for (var itemIndex = 0; itemIndex < 6; itemIndex++) {
     if (localStorage.getItem(storageKeys[itemIndex]) == undefined) {
         localStorage.setItem(storageKeys[itemIndex], storageValues[itemIndex]);
@@ -27,7 +28,7 @@ for (var itemIndex = 0; itemIndex < 6; itemIndex++) {
 
 }
 
-
+*/
 
 
 
@@ -132,10 +133,10 @@ var isMilitary = localStorage.getItem('jkMilitary');
 
 
         /*
-      - Seperates time with a dash('-') and breaks the line after every two schedule times.
-      - The function takes in ['11:00','13:00','16:00','21:00'] and spits out
-        "11:00 - 13:00 <br> 16:00 - 21:00"
-    */
+         * Seperates time with a dash('-') and breaks the line after every two schedule times.
+         * The function takes in ['11:00','13:00','16:00','21:00'] and spits out
+         * "11:00 - 13:00 <br> 16:00 - 21:00"
+         */
 
         var start;
         var even = 0;
@@ -208,8 +209,7 @@ var isMilitary = localStorage.getItem('jkMilitary');
         if (typeof dialga[2] == 'undefined') {
             dialga[2] = 0;
         }
-        // Arceus,I choose you!
-        var arceus;
+        var arceus; // Arceus,I choose you!
 
         //use the Roar of Time!
         arceus = (dialga[0] * 3600 + dialga[1] * 60) * 1000 + dialga[2] * 1000;
