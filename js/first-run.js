@@ -25,7 +25,7 @@ function setOptions() {
         //        AQ1W
         idMain.innerHTML = "<h1 class=\"allset\">All set!</h1>";
         chrome.runtime.getBackgroundPage(function (backgroundPage) {
-            backgroundPage.recursive();
+            backgroundPage.alertify();
         });
     } catch (ex) {
         idMain.innerHTML = "<h1 class=\"allset\">Error installing: <br>" + ex + "<br> Please retry</h1>";

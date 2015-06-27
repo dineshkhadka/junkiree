@@ -90,7 +90,7 @@ function jkSeekHash() {
         var matchGroup = getHash.match(hashSchedules)[0];
         jkPanelToggle(0);
         jkListSchedules(matchGroup);
-    
+
     // seek and destroy class='current' from all the li tags
     $("#group-selector li").each(function(i, el) {
             if ($(this) != null) {
@@ -125,17 +125,17 @@ var updateStatus = document.getElementById('update-status');
 function initSetting() {
     // Storage Getters
 
-    // Current Group 
+    // Current Group
     var storageGroup = localStorage.getItem('jkOptionCurrentGroupIndex');
     var locateGroup = optionGroup.value;
     var thisGroup = optionGroup.getElementsByTagName('option');
 
 
-    // Automatic update 
+    // Automatic update
     var storageUpdate = localStorage.getItem('jkAutoUpdate');
     var thisUpdate = optionUpdate.getElementsByTagName('input');
 
-    // Notification switch 
+    // Notification switch
     var storageNotif = localStorage.getItem('jkNotify');
     var thisNotif = optionNotif.getElementsByTagName('input');
 
@@ -216,7 +216,7 @@ function readForm(ev) {
                 - It checks if the first radio is checked.
                 - If not checked, assumes the second radio must be checked.
                 - If the first one is checked, gets its status without bothering to move to the second. Duh!
-                        
+
             The second radio buttons below work exactly the same like this.
         */
         var ucval = optionUpdate.getElementsByTagName('input')[0];
@@ -276,7 +276,7 @@ function readForm(ev) {
     }
 
     chrome.runtime.getBackgroundPage(function(backgroundPage) {
-        backgroundPage.recursive(true);
+        backgroundPage.alertify(true);
     });
 }
 

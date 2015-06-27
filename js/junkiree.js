@@ -209,11 +209,11 @@ var isMilitary = localStorage.getItem('jkMilitary');
         if (typeof dialga[2] == 'undefined') {
             dialga[2] = 0;
         }
-        var arceus; // Arceus,I choose you!
+        var arceus; // Arceus, I choose you!
 
         //use the Roar of Time!
         arceus = (dialga[0] * 3600 + dialga[1] * 60) * 1000 + dialga[2] * 1000;
-        // It was super effective. Foe Dialga fainted. 
+        // It was super effective. Foe Dialga fainted.
         return arceus;
     }
 
@@ -222,7 +222,7 @@ var isMilitary = localStorage.getItem('jkMilitary');
 
     function jkFartSparkles(theSlime) {
         var toTimeNap = [];
-        //theSlime /= 1000; 
+        //theSlime /= 1000;
         var hr = 1000 * 60 * 60;
         var min = 1000 * 60;
         var sec = 1000;
@@ -275,7 +275,7 @@ var isMilitary = localStorage.getItem('jkMilitary');
                 content = [false, b[t + 1], b[t + 2]];
             }
             /*
-             * if content[0] is true the power is currently off, if false the power is on. 
+             * if content[0] is true the power is currently off, if false the power is on.
              * content[1] is the starting point and content[2] is the ending point.
              */
 

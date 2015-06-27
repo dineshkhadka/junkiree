@@ -5,7 +5,7 @@
   "description": "Junkiree loadshedding schedule viewer and organizer for Google Chrome and Opera",
   "version": "3.5.1",
   "background": {
-      "scripts": ["js/ext/jquery.min.js", "js/junkiree.js","js/recursive.js"]
+      "scripts": ["js/ext/jquery.min.js", "js/junkiree.js","js/alerts.js"]
    },
   "browser_action": {
   "default_icon": {

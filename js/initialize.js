@@ -13,20 +13,20 @@ $('document').ready(function(){
     if (localStorage.jkScheduleJSON != undefined) {
 
         var ctime;
-        var whatsItsName = '';
+        var timeFormat = '';
         thisHour = DateObject.getHours();
         thisMinute = DateObject.getMinutes();
         var addZero = (thisMinute < 10) ? '0' : '';
         if (isMilitary == 'false') {
-            whatsItsName = ' AM';
+            timeFormat = ' AM';
             if (thisHour > 12) {
                 thisHour -= 12;
-                whatsItsName = ' PM';
+                timeFormat = ' PM';
             }
         }
 
         $('#style-today').html(jkFullDayArray[dataList().jkDayIndex])
-        $('#style-current').html(thisHour + ':' + addZero + thisMinute + whatsItsName);
+        $('#style-current').html(thisHour + ':' + addZero + thisMinute + timeFormat);
         $('#style-group').html(jkGetSchedule(dataList().jkDefGroup(), 'title'));
 
 
@@ -94,6 +94,3 @@ $('document').ready(function(){
 
 
 });
-
-
-
