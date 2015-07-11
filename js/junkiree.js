@@ -57,23 +57,26 @@ var dataList = function () {
 };
 
 
-console.log(dataList());
-var start;
-var even = 0;
-var dash = 0;
 
 
-//var jkScheduleURL = 'schedule.json';
+
+/* NOTES TO MY FUTURE SELF
+ * local schedules: Testing purposes
+ * cdn.rawgit [MaxCDN]: Provides higher bandwith but delay in updates to get noticed.
+ * rawgit: Serves Schedules straight through Github but provides extremly lower bandwidths.
+ */
+
+var jkScheduleURL = 'schedule.json';
 //var jkScheduleURL = 'https://cdn.rawgit.com/dineshkhadka/junkiree/master/schedule.json';
-var jkScheduleURL = 'https://rawgit.com/dineshkhadka/junkiree/master/schedule.json';
+//var jkScheduleURL = 'https://rawgit.com/dineshkhadka/junkiree/master/schedule.json';
 var passMessage;
 
 function jkParseRemoteSchedule(jkJSONUrl, jkShowNotif) {
 
     try {
-        $(document).ready(function () { //start
+        $(document).ready(function () { 
             $.getJSON(jkJSONUrl).done(function (jkData) {
-                var jkArrayToString = JSON.stringify(jkData);
+                var jkArrayToString = JSON.stringify(jkData); // Dictionaries?
                 var issueId = jkData['issued']['issueId'];
                 if (localStorage.getItem('jkScheduleJSON') != undefined) {
                     if (jkGetSchedule('issued', 'issueId') != issueId) {
@@ -86,7 +89,7 @@ function jkParseRemoteSchedule(jkJSONUrl, jkShowNotif) {
                         }
                     }
                 } else {
-                    localStorage.setItem('jkScheduleJSON', jkArrayToString);
+                    localStorage.setItem('jkScheduleJSON', jkArrayToString);  
                     passMessage = 'A schedule has been downloaded';
                 }
 
@@ -158,12 +161,12 @@ var isMilitary = localStorage.getItem('jkMilitary');
                 even++;
                 dash++;
             }
-            var _jkCurSch = jkCurSch[start];
+            //var _jkCurSch = ;
 
             // isMilitary was supposed to and can be used as an argument instead of fetching lstorage
 
             if (isMilitary == 'false') {
-                var toSplit = _jkCurSch.split(':');
+                var toSplit = jkCurSch[start].split(':');
 
                 if (toSplit[0] > 12) {
                     toSplit[0] -= 12;
@@ -181,6 +184,9 @@ var isMilitary = localStorage.getItem('jkMilitary');
             }
         }
 
+        if (jkCurSch.length == 2){
+            jkScheduleContainer += ' <br> ~' // A workaround fix a glitch
+        }
 
         return jkScheduleContainer;
 
@@ -330,7 +336,6 @@ function progress(startTime, endTime, currentTime) {
     var $s = $('.knob');
     var p = Math.round(100 * (currentTime - startTime) / (endTime - startTime));
     $s.val(p).trigger('change');
-    return p;
 
 }
 
@@ -339,7 +344,7 @@ function progress(startTime, endTime, currentTime) {
 function jkNotifyUser(junkireeTitle, junkireeIcon, junkireeMessage) {
 
     // Note to self: This is probably chrome specific
-    chrome.notifications.create('a04efjunkiree3490D', {
+    chrome.notifications.create('jidae4f351adddf', {
         title: junkireeTitle,
         iconUrl: junkireeIcon,
         type: 'basic',
