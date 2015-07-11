@@ -23,9 +23,9 @@ notifDict = {
     - Sets that as the timeout
     - Once time runs out, it fires a callback and the recursion kickstarts. Which then refreshes everything
 
-        console.log(filterTime)
+        console.log(status)
         console.log(jkFartSparkles(timetick))
-        console.log("This Instant: "+thisInstant)
+        console.log("This Instant: "+curTime)
         console.log('This: '+jkFartSparkles(timetick))
         console.log('TimeTick: '+ timetick)
         console.log("Delorean: "+ deLorean)
@@ -40,29 +40,34 @@ notifDict = {
 
 
 var alertify = function(noMessage) {
-    var Ghadi = new Date();
-    var thisInstant = jkToMilliseconds(Ghadi.getHours() + ':' + Ghadi.getMinutes() + ':' + Ghadi.getSeconds());
-    var filterTime = jkTimeStatus(thisInstant, jkMillify());
-    var timetick = filterTime[2] - thisInstant;
+    
+var timer = null;
+
     var before = localStorage.jkNotifyID;
 
-    var timer;
-    var timerStarted = false;
+    var Ghadi = new Date();
+    
+    
 
-    var deLorean = filterTime[2] - parseInt(notifDict[before], 10);
-    console.log(filterTime);
-    if (timerStarted !== false) {
-        clearTimeOut(timer);
-    }
+    var ghadiTemplate = Ghadi.getHours() + ':' + Ghadi.getMinutes() + ':' + Ghadi.getSeconds();
+    var curTime = jkToMilliseconds(ghadiTemplate);
+
+
+    var status = jkTimeStatus(curTime, jkMillify());
+    var timetick = status[2] - curTime;
+    var deLorean = status[2] - parseInt(notifDict[before], 10);
+    
+
+
+    window.clearTimeout(timer);
 
 
     var msgTemplate = jkFartSparkles(notifDict[before])[1] + ' Minutes left till';
-    msgTemplate += (filterTime[0] == true) ? ' power on' : ' power off';
+    msgTemplate += (status[0] == true) ? ' power on' : ' power off';
     console.log(msgTemplate);
 
-    if (thisInstant > deLorean) {
-        var timer = setTimeout(alertify, timetick);
-        timerStarted = true;
+    if (curTime > deLorean) {
+        timer = setTimeout(alertify, timetick);
         hideForNow = true;
         console.log("Fartsparkles timeticked:" + jkFartSparkles(timetick));
 
@@ -74,12 +79,13 @@ var alertify = function(noMessage) {
         }
         }
 
-        timer = setTimeout(alertify, (deLorean - thisInstant));
-        timerStarted = true;
-        console.log("Fartsparkles Delorean:" + jkFartSparkles(deLorean - thisInstant));
+        // initiate recursion after the timeout has been achieved
+        // this will then refresh everything and dtermine the next timeout 
+        timer = setTimeout(alertify, (deLorean - curTime));
+        console.log("Fartsparkles Delorean:" + jkFartSparkles(deLorean - curTime));
         hideForNow = false;
     }
-
+    console.log('This is a timer: '+timer)
 }
 
 
