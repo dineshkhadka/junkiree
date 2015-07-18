@@ -1,7 +1,7 @@
 # Junkiree
 
 
-![alt text](http://dineshkhadka.github.io/img/screenshot1.png "Junkiree Screenshot")
+![alt text](http://dineshlakai.com.np/img/screenshot_1.png "Junkiree Screenshot")
 
 Free and open source loadshedding viewer for chrome and other webkit browsers like [Opera](https://opera.com). Visit the [project website](http://dineshkhadka.github.io) for screenshots and features.
 
