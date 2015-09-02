@@ -43,29 +43,28 @@ var alertify = function(noMessage) {
     
 var timer = null;
 
+    //
     var before = localStorage.jkNotifyID;
-
     var Ghadi = new Date();
-    
-    
-
     var ghadiTemplate = Ghadi.getHours() + ':' + Ghadi.getMinutes() + ':' + Ghadi.getSeconds();
     var curTime = jkToMilliseconds(ghadiTemplate);
-
-
     var status = jkTimeStatus(curTime, jkMillify());
     var timetick = status[2] - curTime;
     var deLorean = status[2] - parseInt(notifDict[before], 10);
     
 
-
+    // Attemp to clear a running timer
     window.clearTimeout(timer);
 
 
+    // Template for the alert message
     var msgTemplate = jkFartSparkles(notifDict[before])[1] + ' Minutes left till';
     msgTemplate += (status[0] == true) ? ' power on' : ' power off';
     console.log(msgTemplate);
 
+
+    // A clunky piece of patched up code that works for some reason.
+    // TODO: Refactor the code as sonn as possible. 
     if (curTime > deLorean) {
         timer = setTimeout(alertify, timetick);
         hideForNow = true;
@@ -79,19 +78,18 @@ var timer = null;
         }
         }
 
-        // initiate recursion after the timeout has been achieved
-        // this will then refresh everything and dtermine the next timeout 
+        // Initiate recursion after the timeout has been achieved
+        // This will then refresh everything and determine the next timeout
         timer = setTimeout(alertify, (deLorean - curTime));
         console.log("Fartsparkles Delorean:" + jkFartSparkles(deLorean - curTime));
         hideForNow = false;
     }
-    console.log('This is a timer: '+timer)
 }
 
 
 
 
-
+// The code below checks for new scedules and figures out if this is the first run
 if (localStorage.jkScheduleJSON != null) {
     alertify()
     if (localStorage.jkAutoUpdate == 'true' && localStorage.lastUpdate != DateObject.getDay()) {

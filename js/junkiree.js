@@ -66,9 +66,9 @@ var dataList = function () {
  * rawgit: Serves Schedules straight through Github but provides extremly lower bandwidths.
  */
 
-var jkScheduleURL = 'schedule.json';
+//var jkScheduleURL = 'schedule.json';
 //var jkScheduleURL = 'https://cdn.rawgit.com/dineshkhadka/junkiree/master/schedule.json';
-//var jkScheduleURL = 'https://rawgit.com/dineshkhadka/junkiree/master/schedule.json';
+var jkScheduleURL = 'https://rawgit.com/dineshkhadka/junkiree/master/schedule.json';
 var passMessage;
 
 function jkParseRemoteSchedule(jkJSONUrl, jkShowNotif) {
@@ -185,7 +185,7 @@ var isMilitary = localStorage.getItem('jkMilitary');
         }
 
         if (jkCurSch.length == 2){
-            jkScheduleContainer += ' <br> ~' // A workaround fix a glitch
+            jkScheduleContainer += ' <br> ~' // A workaround to fix a glitch
         }
 
         return jkScheduleContainer;
