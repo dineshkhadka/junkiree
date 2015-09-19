@@ -136,6 +136,7 @@ border: 1px solid #c0c0c0;
 	height: 150px;
 	text-align: center;
 	font-family: sans-serif, verdana;
+	clear: both;
 
 }
 .junkiree{
@@ -339,6 +340,20 @@ font-family: source-sans;
 	color: black;
  
  }
+
+#release-date{
+	margin-left: 4px;
+	margin-top: 2px;
+	font-size: 12px;
+	position: absolute;
+	color: white;
+	font-family: segoe ui;
+	float: right;
+}
+
+
+
+
  	
 .credits{
 clear: both;

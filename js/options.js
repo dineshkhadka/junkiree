@@ -32,7 +32,7 @@ notifTranslateDict = {
 };
 
 
-function jkPanelToggle(toggleID) {
+function PanelToggle(toggleID) {
 
     var pageSelector = document.getElementById('page-selector').getElementsByTagName('li');
 
@@ -72,7 +72,7 @@ function jkPanelToggle(toggleID) {
 }
 
 
-function jkSeekHash() {
+function SeekHash() {
 
     var getHash = window.location.hash;
 
@@ -80,16 +80,16 @@ function jkSeekHash() {
     var hashSchedules = /(\group)\d/i;
 
     if (getHash == '#help') {
-        jkPanelToggle(2);
+        PanelToggle(2);
 
     } else if (getHash == '#options') {
-        jkPanelToggle(1);
+        PanelToggle(1);
         initSetting();
 
     } else {
         var matchGroup = getHash.match(hashSchedules)[0];
-        jkPanelToggle(0);
-        jkListSchedules(matchGroup);
+        PanelToggle(0);
+        ListSchedules(matchGroup);
 
     // seek and destroy class='current' from all the li tags
     $("#group-selector li").each(function(i, el) {
@@ -104,9 +104,9 @@ function jkSeekHash() {
 
 }
 
-function jkListSchedules(group) {
-    for (var suru = 0; suru < jkDayArray.length; suru++) {
-        $('#' + jkDayArray[suru]).html(jkDashify(group, jkDayArray[suru]));
+function ListSchedules(group) {
+    for (var suru = 0; suru < DayArray.length; suru++) {
+        $('#' + DayArray[suru]).html(Dashify(group, DayArray[suru]));
 
     }
 }
@@ -123,31 +123,31 @@ var updateStatus = document.getElementById('update-status');
 
 
 function initSetting() {
-    // Storage Getters
+    
 
     // Current Group
-    var storageGroup = localStorage.getItem('jkOptionCurrentGroupIndex');
+    var storageGroup = localStorage.getItem('OptionCurrentGroupIndex');
     var locateGroup = optionGroup.value;
     var thisGroup = optionGroup.getElementsByTagName('option');
 
 
     // Automatic update
-    var storageUpdate = localStorage.getItem('jkAutoUpdate');
+    var storageUpdate = localStorage.getItem('AutoUpdate');
     var thisUpdate = optionUpdate.getElementsByTagName('input');
 
     // Notification switch
-    var storageNotif = localStorage.getItem('jkNotify');
+    var storageNotif = localStorage.getItem('Notify');
     var thisNotif = optionNotif.getElementsByTagName('input');
 
 
     //  Notification time
-    var storageNotifTime = localStorage.getItem('jkNotifyID');
+    var storageNotifTime = localStorage.getItem('NotifyID');
     var locateNotifTime = optionNotifTime.value;
     var thisNotifTime = optionNotifTime.getElementsByTagName('option');
 
 
     //  Meridian or Military
-    var storageMilitaryTime = localStorage.getItem('jkMilitary');
+    var storageMilitaryTime = localStorage.getItem('Military');
     var thisMilitaryTime = optionMilitaryTime.getElementsByTagName('input');
 
 
@@ -191,7 +191,7 @@ function initSetting() {
 
 
 
-function jkSuccessMessage(content) {
+function SuccessMessage(content) {
     msg.innerHTML = content;
 }
 
@@ -203,8 +203,8 @@ function readForm(ev) {
         var gpat = /\d/; // Dirty: Seeks out the number from the values
         var setGroup = parseInt(ogval.match(gpat), 10) - 1;
         try {
-            localStorage.setItem('jkOptionCurrentGroupIndex', setGroup);
-            jkSuccessMessage('The Default group has been changed to: ' + groupDict[ogval]);
+            localStorage.setItem('OptionCurrentGroupIndex', setGroup);
+            SuccessMessage('The Default group has been changed to: ' + groupDict[ogval]);
         } catch (ex) {
             alert('Error: There was an error storing your data. Please make sure You\'re browser is up to date');
         }
@@ -222,12 +222,12 @@ function readForm(ev) {
         var ucval = optionUpdate.getElementsByTagName('input')[0];
         var ucvalStatus = ucval.checked;
         try {
-            localStorage.setItem('jkAutoUpdate', ucvalStatus);
-            if (localStorage.getItem('jkAutoUpdate') == 'false') {
+            localStorage.setItem('AutoUpdate', ucvalStatus);
+            if (localStorage.getItem('AutoUpdate') == 'false') {
 
-                jkSuccessMessage('Automatic update Disabled ');
+                SuccessMessage('Automatic update Disabled ');
             } else {
-                jkSuccessMessage('Automatic Update enabled');
+                SuccessMessage('Automatic Update enabled');
             }
         } catch (ex) {
             alert('There has been an error setting the option. \n' + ex);
@@ -237,12 +237,12 @@ function readForm(ev) {
         var ncval = optionNotif.getElementsByTagName('input')[0];
         var ncvalStatus = ncval.checked;
         try {
-            localStorage.setItem('jkNotify', ncvalStatus);
-            if (localStorage.getItem('jkNotify') == 'false') {
+            localStorage.setItem('Notify', ncvalStatus);
+            if (localStorage.getItem('Notify') == 'false') {
 
-                jkSuccessMessage('Notification has been switched off ');
+                SuccessMessage('Notification has been switched off ');
             } else {
-                jkSuccessMessage('Notification has been switched on ');
+                SuccessMessage('Notification has been switched on ');
             }
         } catch (ex) {
             alert('There has been an error setting the option.');
@@ -251,8 +251,9 @@ function readForm(ev) {
     } else if (ev == 'notifTimeChanged') {
         var ntcval = optionNotifTime.value;
         try {
-            localStorage.setItem('jkNotifyID', ntcval);
-            jkSuccessMessage('You will be notified before ' + notifTranslateDict[ntcval]);
+            localStorage.setItem('NotifyID', ntcval);
+            SuccessMessage('You will be notified before ' + notifTranslateDict[ntcval]);
+
         } catch (ex) {
             alert('There has been an error setting the option.\n' + ex);
         }
@@ -261,12 +262,12 @@ function readForm(ev) {
         var mtvalStatus = mtval.checked;
 
         try {
-            localStorage.setItem('jkMilitary', mtvalStatus);
-            if (localStorage.getItem('jkMilitary') == 'false') {
+            localStorage.setItem('Military', mtvalStatus);
+            if (localStorage.getItem('Military') == 'false') {
 
-                jkSuccessMessage('The Time Format is now set to 12 hr');
+                SuccessMessage('The Time Format is now set to 12 hr');
             } else {
-                jkSuccessMessage('The Time Format is now set to 24 hr');
+                SuccessMessage('The Time Format is now set to 24 hr');
             }
         } catch (ex) {
             alert('There has been an error setting the option.\n' + ex);
@@ -300,10 +301,22 @@ optionMilitaryTime.addEventListener('change', function() {
 });
 
 updateClick.addEventListener('click', function() {
-    jkParseRemoteSchedule(jkScheduleURL, true);
+    ParseRemoteSchedule(ScheduleURL, true);
 });
 
 
 // Read the hash after the window loads assuming the page loads with a hash attached to it
-window.onload = jkSeekHash;
-window.addEventListener('hashchange', jkSeekHash, false);
+window.onload = SeekHash;
+window.addEventListener('hashchange', SeekHash, false);
+
+$(document).ready(function(){
+    $('#release-date').html(
+        function(){
+            var dateReleased = `Issued: ${GetSchedule('issued','bs')}`
+            return dateReleased
+        }
+
+
+
+        )
+})

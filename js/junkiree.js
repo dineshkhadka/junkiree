@@ -7,9 +7,9 @@ Copyright (C) 2015 by Dinesh Khadka [http://junkiree.github.io]
 */
 
 
-var jkDayArray = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
-var jkFullDayArray = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-var jkGroupArray = ['group1', 'group2', 'group3', 'group4', 'group5', 'group6', 'group7'];
+var DayArray = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+var FullDayArray = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+var GroupArray = ['group1', 'group2', 'group3', 'group4', 'group5', 'group6', 'group7'];
 
 
 
@@ -18,7 +18,7 @@ var jkGroupArray = ['group1', 'group2', 'group3', 'group4', 'group5', 'group6', 
 
 // lastUpdate is set to be 351 since it acts as a unique number.
 // These values are crucial for the app. Check them beforehand to avoid any errors
-var storageKeys = ['jkAutoupdate', 'jkMilitary', 'jkNotify', 'jkNotifyID', 'jkOptionCurrentGroupIndex', 'lastUpdate'];
+var storageKeys = ['Autoupdate', 'Military', 'Notify', 'NotifyID', 'OptionCurrentGroupIndex', 'lastUpdate'];
 var storageValues = ['true', 'true', 'true', 't1', '0', '351'];
 /*
 for (var itemIndex = 0; itemIndex < 6; itemIndex++) {
@@ -40,17 +40,17 @@ var remind = function () {
 
 var dataList = function () {
     return {
-        GroupIndex: localStorage.jkOptionCurrentGroupIndex,
-        jkDayIndex: remind(),
-        jkDayPrefix: jkDayArray[remind()],
-        jkDefGroup: function () {
-            return jkGroupArray[this.GroupIndex];
+        GroupIndex: localStorage.OptionCurrentGroupIndex,
+        DayIndex: remind(),
+        DayPrefix: DayArray[remind()],
+        DefGroup: function () {
+            return GroupArray[this.GroupIndex];
         },
         NextDayIndex: function () {
-            return (this.jkDayIndex == 6) ? 0 : this.jkDayIndex + 1;
+            return (this.DayIndex == 6) ? 0 : this.DayIndex + 1;
         },
-        jkNextDayPrefix: function () {
-            return jkDayArray[this.NextDayIndex()];
+        NextDayPrefix: function () {
+            return DayArray[this.NextDayIndex()];
         }
     };
 
@@ -66,34 +66,34 @@ var dataList = function () {
  * rawgit: Serves Schedules straight through Github but provides extremly lower bandwidths.
  */
 
-//var jkScheduleURL = 'schedule.json';
-//var jkScheduleURL = 'https://cdn.rawgit.com/dineshkhadka/junkiree/master/schedule.json';
-var jkScheduleURL = 'https://rawgit.com/dineshkhadka/junkiree/master/schedule.json';
+//var ScheduleURL = 'schedule.json';
+//var ScheduleURL = 'https://cdn.rawgit.com/dineshkhadka/junkiree/master/schedule.json';
+var ScheduleURL = 'https://rawgit.com/dineshkhadka/junkiree/master/schedule.json';
 var passMessage;
 
-function jkParseRemoteSchedule(jkJSONUrl, jkShowNotif) {
+function ParseRemoteSchedule(JSONUrl, ShowNotif) {
 
     try {
         $(document).ready(function () { 
-            $.getJSON(jkJSONUrl).done(function (jkData) {
-                var jkArrayToString = JSON.stringify(jkData); // Dictionaries?
-                var issueId = jkData['issued']['issueId'];
-                if (localStorage.getItem('jkScheduleJSON') != undefined) {
-                    if (jkGetSchedule('issued', 'issueId') != issueId) {
-                        localStorage.setItem('jkScheduleJSON', jkArrayToString);
+            $.getJSON(JSONUrl).done(function (Data) {
+                var ArrayToString = JSON.stringify(Data); // Dictionaries?
+                var issueId = Data['issued']['issueId'];
+                if (localStorage.getItem('ScheduleJSON') != undefined) {
+                    if (GetSchedule('issued', 'issueId') != issueId) {
+                        localStorage.setItem('ScheduleJSON', ArrayToString);
                         passMessage = 'A new schedule has been found and updated';
                     } else {
-                        if (jkShowNotif != undefined) {
+                        if (ShowNotif != undefined) {
 
                             passMessage = 'Your schedules are up to date';
                         }
                     }
                 } else {
-                    localStorage.setItem('jkScheduleJSON', jkArrayToString);  
+                    localStorage.setItem('ScheduleJSON', ArrayToString);  
                     passMessage = 'A schedule has been downloaded';
                 }
 
-                jkNotifyUser('Schedule Updater', 'img/bulb-on.png', passMessage);
+                NotifyUser('Schedule Updater', 'img/bulb-on.png', passMessage);
             });
 
         }); //end
@@ -106,21 +106,21 @@ function jkParseRemoteSchedule(jkJSONUrl, jkShowNotif) {
 
 }
 
-//jkParseRemoteSchedule(jkScheduleURL)
-function jkGetSchedule(jkGroup, jkDay) {
+//ParseRemoteSchedule(ScheduleURL)
+function GetSchedule(Group, Day) {
     /*
-        Returns all the schedules of a group if jkDay(day of the week) is not specified
+        Returns all the schedules of a group if Day(day of the week) is not specified
     */
-    var jkScheduleItem = localStorage.getItem('jkScheduleJSON');
-    var jkSchedule = JSON.parse(jkScheduleItem);
-    if (jkGroup != undefined) {
-        if (jkDay != undefined) {
-            return jkSchedule[jkGroup][jkDay];
+    var ScheduleItem = localStorage.getItem('ScheduleJSON');
+    var Schedule = JSON.parse(ScheduleItem);
+    if (Group != undefined) {
+        if (Day != undefined) {
+            return Schedule[Group][Day];
         } else {
-            return jkSchedule[jkGroup];
+            return Schedule[Group];
         }
     } else {
-        return jkSchedule;
+        return Schedule;
 
     }
 
@@ -128,11 +128,11 @@ function jkGetSchedule(jkGroup, jkDay) {
 }
 
 
-//jkParseRemoteSchedule(jkScheduleURL);
+//ParseRemoteSchedule(ScheduleURL);
 
-var isMilitary = localStorage.getItem('jkMilitary');
+var isMilitary = localStorage.getItem('Military');
 
-    function jkDashify(_grp, _dte) {
+    function Dashify(_grp, _dte) {
 
 
         /*
@@ -145,28 +145,28 @@ var isMilitary = localStorage.getItem('jkMilitary');
         var even = 0;
         var dash = 0;
 
-        var jkScheduleContainer = '';
-        var jkCurSch = jkGetSchedule(_grp)[_dte];
+        var ScheduleContainer = '';
+        var CurSch = GetSchedule(_grp)[_dte];
 
-        for (start = 0; start < jkCurSch.length; start++) {
+        for (start = 0; start < CurSch.length; start++) {
             if (even == 2) {
-                jkScheduleContainer += '<br>';
+                ScheduleContainer += '<br>';
                 even = 1;
             } else {
                 if (dash == 1) {
-                    jkScheduleContainer += ' &mdash; ';
+                    ScheduleContainer += ' &mdash; ';
                     dash = 0;
                 }
 
                 even++;
                 dash++;
             }
-            //var _jkCurSch = ;
+            //var _CurSch = ;
 
             // isMilitary was supposed to and can be used as an argument instead of fetching lstorage
 
             if (isMilitary == 'false') {
-                var toSplit = jkCurSch[start].split(':');
+                var toSplit = CurSch[start].split(':');
 
                 if (toSplit[0] > 12) {
                     toSplit[0] -= 12;
@@ -178,17 +178,17 @@ var isMilitary = localStorage.getItem('jkMilitary');
                     toSplit[1] += ' AM';
                 }
 
-                jkScheduleContainer += toSplit[0] + ':' + toSplit[1];
+                ScheduleContainer += toSplit[0] + ':' + toSplit[1];
             } else {
-                jkScheduleContainer += jkCurSch[start];
+                ScheduleContainer += CurSch[start];
             }
         }
 
-        if (jkCurSch.length == 2){
-            jkScheduleContainer += ' <br> ~' // A workaround to fix a glitch
+        if (CurSch.length == 2){
+            ScheduleContainer += ' <br> ~' // A workaround to fix a glitch
         }
 
-        return jkScheduleContainer;
+        return ScheduleContainer;
 
     }
 
@@ -196,11 +196,11 @@ var isMilitary = localStorage.getItem('jkMilitary');
 
 
 
-    // Arguments and variables below these are not prefixed with jk because these were merged into junkiree.js from scheduler.js
-    function jkAppendTimes(identification, grp, dte) {
+    // Arguments and variables below these are not prefixed with  because these were merged into junkiree.js from scheduler.js
+    function AppendTimes(identification, grp, dte) {
         $(document).ready(function () {
 
-            $('#'+identification).append(jkDashify(grp, dte));
+            $('#'+identification).append(Dashify(grp, dte));
 
         });
     }
@@ -209,7 +209,7 @@ var isMilitary = localStorage.getItem('jkMilitary');
 
 
 
-    function jkToMilliseconds(palkia) {
+    function ToMilliseconds(palkia) {
         // Input Format: either HH:MM or HH:MM:SS
         var dialga = palkia.split(':');
         if (typeof dialga[2] == 'undefined') {
@@ -226,7 +226,7 @@ var isMilitary = localStorage.getItem('jkMilitary');
 
 
 
-    function jkFartSparkles(theSlime) {
+    function FartSparkles(theSlime) {
         var toTimeNap = [];
         //theSlime /= 1000;
         var hr = 1000 * 60 * 60;
@@ -249,7 +249,7 @@ var isMilitary = localStorage.getItem('jkMilitary');
         return toTimeNap;
     }
 
-    function jkTimeStatus(c, b) {
+    function TimeStatus(c, b) {
 
 
         var content = [];
@@ -264,7 +264,7 @@ var isMilitary = localStorage.getItem('jkMilitary');
 
                 // This below outputs the tme left till the first powercut of the next day
                 // 86400000 equals 24:00
-                content = [false, b[b.length - 1], jkMillify()[0] + 86400000];
+                content = [false, b[b.length - 1], Millify()[0] + 86400000];
             }
 
 
@@ -291,13 +291,13 @@ var isMilitary = localStorage.getItem('jkMilitary');
     }
 
 
-var curMS = jkToMilliseconds(DateObject.getHours() + ':' + DateObject.getMinutes() + ':' + DateObject.getSeconds());
+var curMS = ToMilliseconds(DateObject.getHours() + ':' + DateObject.getMinutes() + ':' + DateObject.getSeconds());
 
-    function jkMillify() {
+    function Millify() {
         var _scheduleToMs = [];
-        range = jkGetSchedule(dataList().jkDefGroup(), dataList().jkDayPrefix);
+        range = GetSchedule(dataList().DefGroup(), dataList().DayPrefix);
         for ( var list in range) {
-            _scheduleToMs[list] = jkToMilliseconds(range[list]);
+            _scheduleToMs[list] = ToMilliseconds(range[list]);
         }
         return _scheduleToMs;
     }
@@ -305,12 +305,12 @@ var curMS = jkToMilliseconds(DateObject.getHours() + ':' + DateObject.getMinutes
 
 
 
-var powerStatus = jkTimeStatus(curMS, jkMillify());
+var powerStatus = TimeStatus(curMS, Millify());
 
 function remaining() {
     var chewOnThis;
 
-    timeLeft = jkFartSparkles(powerStatus[2] - curMS);
+    timeLeft = FartSparkles(powerStatus[2] - curMS);
     if (powerStatus[0] == true) {
         $('#style-remaining').removeClass('powerOn');
         $('#style-remaining').addClass('powerOff');
@@ -341,7 +341,7 @@ function progress(startTime, endTime, currentTime) {
 
 
 
-function jkNotifyUser(junkireeTitle, junkireeIcon, junkireeMessage) {
+function NotifyUser(junkireeTitle, junkireeIcon, junkireeMessage) {
 
     // Note to self: This is probably chrome specific
     chrome.notifications.create('jidae4f351adddf', {
@@ -350,4 +350,8 @@ function jkNotifyUser(junkireeTitle, junkireeIcon, junkireeMessage) {
         type: 'basic',
         message: junkireeMessage
     }, function () {})
+    
+    setTimeout(function(){
+        chrome.notifications.clear('jidae4f351adddf', function(){})
+    }, 3000);
 }

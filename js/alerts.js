@@ -24,9 +24,9 @@ notifDict = {
     - Once time runs out, it fires a callback and the recursion kickstarts. Which then refreshes everything
 
         console.log(status)
-        console.log(jkFartSparkles(timetick))
+        console.log(FartSparkles(timetick))
         console.log("This Instant: "+curTime)
-        console.log('This: '+jkFartSparkles(timetick))
+        console.log('This: '+FartSparkles(timetick))
         console.log('TimeTick: '+ timetick)
         console.log("Delorean: "+ deLorean)
         console.log(notifDict[before])
@@ -44,11 +44,11 @@ var alertify = function(noMessage) {
 var timer = null;
 
     //
-    var before = localStorage.jkNotifyID;
+    var before = localStorage.NotifyID;
     var Ghadi = new Date();
     var ghadiTemplate = Ghadi.getHours() + ':' + Ghadi.getMinutes() + ':' + Ghadi.getSeconds();
-    var curTime = jkToMilliseconds(ghadiTemplate);
-    var status = jkTimeStatus(curTime, jkMillify());
+    var curTime = ToMilliseconds(ghadiTemplate);
+    var status = TimeStatus(curTime, Millify());
     var timetick = status[2] - curTime;
     var deLorean = status[2] - parseInt(notifDict[before], 10);
     
@@ -58,30 +58,30 @@ var timer = null;
 
 
     // Template for the alert message
-    var msgTemplate = jkFartSparkles(notifDict[before])[1] + ' Minutes left till';
-    msgTemplate += (status[0] == true) ? ' power on' : ' power off';
+    var msgTemplate = `${FartSparkles(notifDict[before])[1]}  Minutes left until a ${(status[0] == true) ? 'power on' : 'power off'}`
+
     console.log(msgTemplate);
 
 
     // A clunky piece of patched up code that works for some reason.
-    // TODO: Refactor the code as sonn as possible. 
+    // TODO: Refactor the code as soon as possible. 
     if (curTime > deLorean) {
         timer = setTimeout(alertify, timetick);
         hideForNow = true;
-        console.log("Fartsparkles timeticked:" + jkFartSparkles(timetick));
+        console.log("Fartsparkles timeticked:" + FartSparkles(timetick));
 
     } else {
 
         if (hideForNow == false) {
             if (noMessage != true){
-                 jkNotifyUser('Junkiree', 'img/bulb-on.png', msgTemplate);
+                 NotifyUser('Junkiree', 'img/notification.png', msgTemplate);
         }
         }
 
         // Initiate recursion after the timeout has been achieved
         // This will then refresh everything and determine the next timeout
         timer = setTimeout(alertify, (deLorean - curTime));
-        console.log("Fartsparkles Delorean:" + jkFartSparkles(deLorean - curTime));
+        console.log("Fartsparkles Delorean:" + FartSparkles(deLorean - curTime));
         hideForNow = false;
     }
 }
@@ -90,11 +90,11 @@ var timer = null;
 
 
 // The code below checks for new scedules and figures out if this is the first run
-if (localStorage.jkScheduleJSON != null) {
+if (localStorage.ScheduleJSON != null) {
     alertify()
-    if (localStorage.jkAutoUpdate == 'true' && localStorage.lastUpdate != DateObject.getDay()) {
+    if (localStorage.AutoUpdate == 'true' && localStorage.lastUpdate != DateObject.getDay()) {
 
-            jkParseRemoteSchedule(jkScheduleURL);
+            ParseRemoteSchedule(ScheduleURL);
             localStorage.setItem('lastUpdate', DateObject.getDay());
 
         }

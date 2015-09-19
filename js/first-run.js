@@ -11,16 +11,16 @@ function setOptions() {
     var idMain = document.getElementById("main");
     var getGroupValue = parseInt(idGroup.value, 10) - 1;
 
-    localStorage.setItem("jkAutoUpdate", "true");
-    localStorage.setItem("jkNotify", "true");
-    localStorage.setItem("jkNotifyID", "t1");
-    localStorage.setItem("jkMilitary", "true");
+    localStorage.setItem("AutoUpdate", "true");
+    localStorage.setItem("Notify", "true");
+    localStorage.setItem("NotifyID", "t1");
+    localStorage.setItem("Military", "true");
 
     try {
-        //jkParseRemoteSchedule(jkScheduleURL)
+        //ParseRemoteSchedule(ScheduleURL)
         // Local schedules are read quicker. 
-        jkParseRemoteSchedule('schedule.json');
-        localStorage.setItem("jkOptionCurrentGroupIndex", getGroupValue);
+        ParseRemoteSchedule('schedule.json');
+        localStorage.setItem("OptionCurrentGroupIndex", getGroupValue);
         //  My dog rest his face on the keyboard and typed this: 
         //        AQ1W
         idMain.innerHTML = "<h1 class=\"allset\">All set!</h1>";

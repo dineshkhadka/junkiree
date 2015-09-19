@@ -10,7 +10,7 @@ Copyright (C) 2015 by Dinesh Khadka [http://junkiree.github.io]
 var nepMonth = ['Baisakh', 'Jestha', 'Ashar', 'Shrawan', 'Bhadra', 'Ashoj', 'Kartik', 'Mangsir', 'Poush', 'Magh', 'Falgun', 'Chaitra'];
 
 $('document').ready(function(){
-    if (localStorage.jkScheduleJSON != undefined) {
+    if (localStorage.ScheduleJSON != undefined) {
 
         var ctime;
         var timeFormat = '';
@@ -25,13 +25,13 @@ $('document').ready(function(){
             }
         }
 
-        $('#style-today').html(jkFullDayArray[dataList().jkDayIndex])
+        $('#style-today').html(FullDayArray[dataList().DayIndex])
         $('#style-current').html(thisHour + ':' + addZero + thisMinute + timeFormat);
-        $('#style-group').html(jkGetSchedule(dataList().jkDefGroup(), 'title'));
+        $('#style-group').html(GetSchedule(dataList().DefGroup(), 'title'));
 
 
-        jkAppendTimes('style-tommorow', dataList().jkDefGroup(), dataList().jkNextDayPrefix());
-        jkAppendTimes('style-times', dataList().jkDefGroup(), dataList().jkDayPrefix);
+        AppendTimes('style-tommorow', dataList().DefGroup(), dataList().NextDayPrefix());
+        AppendTimes('style-times', dataList().DefGroup(), dataList().DayPrefix);
 
         if (isMilitary == 'false') {
             $('#style-times').addClass('meridian-today')
