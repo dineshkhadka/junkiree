@@ -93,7 +93,7 @@ function ParseRemoteSchedule(JSONUrl, ShowNotif) {
                     passMessage = 'A schedule has been downloaded';
                 }
 
-                NotifyUser('Schedule Updater', 'img/bulb-on.png', passMessage);
+                NotifyUser('Schedule Updater', 'img/notification.png', passMessage);
             });
 
         }); //end
@@ -185,7 +185,7 @@ var isMilitary = localStorage.getItem('Military');
         }
 
         if (CurSch.length == 2){
-            ScheduleContainer += ' <br> ~' // A workaround to fix a glitch
+            ScheduleContainer += ' <br> -' // A workaround to fix a glitch
         }
 
         return ScheduleContainer;
@@ -196,7 +196,7 @@ var isMilitary = localStorage.getItem('Military');
 
 
 
-    // Arguments and variables below these are not prefixed with  because these were merged into junkiree.js from scheduler.js
+    
     function AppendTimes(identification, grp, dte) {
         $(document).ready(function () {
 
