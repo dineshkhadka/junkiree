@@ -11,7 +11,7 @@ Copyright (C) 2015 by Dinesh Khadka [http://junkiree.github.io]
 var startNotif = true;
 var count = true;
 var hideForNow = true;
-notifDict = {
+var tdelays = {
     't1': 900000,
     't2': 1800000,
     't3': 3600000
@@ -22,66 +22,41 @@ notifDict = {
     - Gets the time remaining in milliseconds
     - Sets that as the timeout
     - Once time runs out, it fires a callback and the recursion kickstarts. Which then refreshes everything
-
-        console.log(status)
-        console.log(FartSparkles(timetick))
-        console.log("This Instant: "+curTime)
-        console.log('This: '+FartSparkles(timetick))
-        console.log('TimeTick: '+ timetick)
-        console.log("Delorean: "+ deLorean)
-        console.log(notifDict[before])
-
 */
 
 // TODO: If the Schedules are changed mid program. The notifications are shown at the previous groups time
-
-
-
-
-
-var alertify = function(noMessage) {
+function alertify(noMessage) {
     
-var timer = null;
-
-    //
-    var before = localStorage.NotifyID;
-    var Ghadi = new Date();
-    var ghadiTemplate = Ghadi.getHours() + ':' + Ghadi.getMinutes() + ':' + Ghadi.getSeconds();
-    var curTime = ToMilliseconds(ghadiTemplate);
+    var timer = null;
+    var delay = localStorage.NotifyID;
+    var ti = new Date(); // It exists since it must be refreshed at each run.
+    var tiTemplate = `${ti.getHours()} : ${ti.getMinutes()} : ${ti.getSeconds()}`
+    var curTime = ToMilliseconds(tiTemplate);
     var status = TimeStatus(curTime, Millify());
     var timetick = status[2] - curTime;
-    var deLorean = status[2] - parseInt(notifDict[before], 10);
+    var deLorean = status[2] - parseInt(tdelays[delay], 10);
     
 
     // Attemp to clear a running timer
     window.clearTimeout(timer);
-
-
+    
     // Template for the alert message
-    var msgTemplate = `${FartSparkles(notifDict[before])[1]}  Minutes left until a ${(status[0] == true) ? 'power on' : 'power off'}`
+    var msgTemplate = `${normalizeTime(tdelays[delay])[1]}  Minutes left until a ${(status[0] == true) ? 'power on' : 'power off'}`
 
-    console.log(msgTemplate);
-
-
-    // A clunky piece of patched up code that works for some reason.
     // TODO: Refactor the code as soon as possible. 
     if (curTime > deLorean) {
         timer = setTimeout(alertify, timetick);
         hideForNow = true;
-        console.log("Fartsparkles timeticked:" + FartSparkles(timetick));
+        console.log("normalizeTime timeticked:" + normalizeTime(timetick));
 
     } else {
 
-        if (hideForNow == false) {
-            if (noMessage != true){
-                 NotifyUser('Junkiree', 'img/notification.png', msgTemplate);
+        if (hideForNow == false && noMessage == false && localStorage.notify == true) {
+            NotifyUser('Junkiree', 'img/notification.png', msgTemplate);
         }
-        }
-
-        // Initiate recursion after the timeout has been achieved
-        // This will then refresh everything and determine the next timeout
+        
         timer = setTimeout(alertify, (deLorean - curTime));
-        console.log("Fartsparkles Delorean:" + FartSparkles(deLorean - curTime));
+        console.log("normalizeTime Delorean:" + normalizeTime(deLorean - curTime));
         hideForNow = false;
     }
 }
@@ -93,7 +68,7 @@ var timer = null;
 if (localStorage.ScheduleJSON != null) {
     alertify()
     if (localStorage.AutoUpdate == 'true' && localStorage.lastUpdate != DateObject.getDay()) {
-
+            console.log("Checked For a Update!")
             ParseRemoteSchedule(ScheduleURL);
             localStorage.setItem('lastUpdate', DateObject.getDay());
 
