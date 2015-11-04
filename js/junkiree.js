@@ -5,8 +5,6 @@ Copyright (C) 2015 by Dinesh Khadka [http://junkiree.github.io]
 
 
 */
-
-
 var DayArray = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 var FullDayArray = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 var GroupArray = ['group1', 'group2', 'group3', 'group4', 'group5', 'group6', 'group7'];
@@ -14,35 +12,14 @@ var GroupArray = ['group1', 'group2', 'group3', 'group4', 'group5', 'group6', 'g
 
 
 
-
-
-// lastUpdate is set to be 351 since it acts as a unique number.
-// These values are crucial for the app. Check them beforehand to avoid any errors
-var storageKeys = ['Autoupdate', 'Military', 'Notify', 'NotifyID', 'OptionCurrentGroupIndex', 'lastUpdate'];
-var storageValues = ['true', 'true', 'true', 't1', '0', '351'];
-/*
-for (var itemIndex = 0; itemIndex < 6; itemIndex++) {
-    if (localStorage.getItem(storageKeys[itemIndex]) == undefined) {
-        localStorage.setItem(storageKeys[itemIndex], storageValues[itemIndex]);
-    }
-
-}
-
-*/
-
-
-
 var DateObject = new Date();
-var remind = function () {
-    return new Date().getDay();
-};
-
+var remind = DateObject.getDay()
 
 var dataList = function () {
     return {
         GroupIndex: localStorage.OptionCurrentGroupIndex,
-        DayIndex: remind(),
-        DayPrefix: DayArray[remind()],
+        DayIndex: remind,
+        DayPrefix: DayArray[remind],
         DefGroup: function () {
             return GroupArray[this.GroupIndex];
         },
@@ -55,7 +32,6 @@ var dataList = function () {
     };
 
 };
-
 
 
 
@@ -74,33 +50,39 @@ var passMessage;
 function ParseRemoteSchedule(JSONUrl, ShowNotif) {
 
     try {
-        $(document).ready(function () { 
-            $.getJSON(JSONUrl).done(function (Data) {
-                var ArrayToString = JSON.stringify(Data); // Dictionaries?
-                var issueId = Data['issued']['issueId'];
-                if (localStorage.getItem('ScheduleJSON') != undefined) {
-                    if (GetSchedule('issued', 'issueId') != issueId) {
-                        localStorage.setItem('ScheduleJSON', ArrayToString);
-                        passMessage = 'A new schedule has been found and updated';
-                    } else {
-                        if (ShowNotif != undefined) {
+        $(document).ready(function () {
+            $.getJSON(JSONUrl)
+                .done(function (Data) {
+                    var ArrayToString = JSON.stringify(Data); // Dictionaries?
+                    var issueId = Data['issued']['issueId'];
+                    if (localStorage.getItem('ScheduleJSON') != undefined) {
+                        if (GetSchedule('issued', 'issueId') != issueId) {
+                            localStorage.setItem('ScheduleJSON', ArrayToString);
+                            passMessage = 'A new schedule has been found and updated';
+                        } else {
+                            if (ShowNotif != undefined) {
 
-                            passMessage = 'Your schedules are up to date';
+                                passMessage = 'Your schedules are up to date';
+                            }
                         }
+                    } else {
+                        localStorage.setItem('ScheduleJSON', ArrayToString);
+                        passMessage = 'A schedule has been downloaded';
                     }
-                } else {
-                    localStorage.setItem('ScheduleJSON', ArrayToString);  
-                    passMessage = 'A schedule has been downloaded';
-                }
 
-                NotifyUser('Schedule Updater', 'img/notification.png', passMessage);
-            });
+                    NotifyUser('Schedule Updater', 'icons/junkiree-48.png', passMessage);
+                })
+                .error(function () {
+                    NotifyUser('Schedule Updater', 'img/notification.png', "Failed to Update schedules");
+                });
+
+            ;
 
         }); //end
 
     } catch (ex) {
 
-        passMessage = 'failed';
+
     }
 
 
@@ -110,7 +92,7 @@ function ParseRemoteSchedule(JSONUrl, ShowNotif) {
 function GetSchedule(Group, Day) {
     /*
         Returns all the schedules of a group if Day(day of the week) is not specified
-    */
+        */
     var ScheduleItem = localStorage.getItem('ScheduleJSON');
     var Schedule = JSON.parse(ScheduleItem);
     if (Group != undefined) {
@@ -132,175 +114,157 @@ function GetSchedule(Group, Day) {
 
 var isMilitary = localStorage.getItem('Military');
 
-    function Dashify(_grp, _dte) {
+function Dashify(_grp, _dte) {
+    var start;
+    var even = 0;
+    var dash = 0;
 
+    var ScheduleContainer = '';
+    var CurSch = GetSchedule(_grp)[_dte];
 
-        /*
-         * Seperates time with a dash('-') and breaks the line after every two schedule times.
-         * The function takes in ['11:00','13:00','16:00','21:00'] and spits out
-         * "11:00 - 13:00 <br> 16:00 - 21:00"
-         */
-
-        var start;
-        var even = 0;
-        var dash = 0;
-
-        var ScheduleContainer = '';
-        var CurSch = GetSchedule(_grp)[_dte];
-
-        for (start = 0; start < CurSch.length; start++) {
-            if (even == 2) {
-                ScheduleContainer += '<br>';
-                even = 1;
-            } else {
-                if (dash == 1) {
-                    ScheduleContainer += ' &mdash; ';
-                    dash = 0;
-                }
-
-                even++;
-                dash++;
+    for (start = 0; start < CurSch.length; start++) {
+        if (even == 2) {
+            ScheduleContainer += '<br>';
+            even = 1;
+        } else {
+            if (dash == 1) {
+                ScheduleContainer += ' &mdash; ';
+                dash = 0;
             }
-            //var _CurSch = ;
 
-            // isMilitary was supposed to and can be used as an argument instead of fetching lstorage
+            even++;
+            dash++;
+        }
+        
+        if (isMilitary == 'false') {
+            var toSplit = CurSch[start].split(':');
 
-            if (isMilitary == 'false') {
-                var toSplit = CurSch[start].split(':');
-
-                if (toSplit[0] > 12) {
-                    toSplit[0] -= 12;
-                    toSplit[1] += ' PM';
-                    var addZero = (toSplit[0] < 10) ? '0' : '';
-                    toSplit[0] = addZero + toSplit[0];
-                    // Hours greater than 12 are substracted and result in a single digit integer ie '7'. Add 0 before them.
-                } else {
-                    toSplit[1] += ' AM';
-                }
-
-                ScheduleContainer += toSplit[0] + ':' + toSplit[1];
+            if (toSplit[0] > 12) {
+                toSplit[0] -= 12;
+                toSplit[1] += ' PM';
+                var addZero = (toSplit[0] < 10) ? '0' : '';
+                toSplit[0] = addZero + toSplit[0];
+                // Hours greater than 12 are substracted and result in a single digit integer ie '7'. Add 0 before them.
             } else {
-                ScheduleContainer += CurSch[start];
+                toSplit[1] += ' AM';
             }
+
+            ScheduleContainer += toSplit[0] + ':' + toSplit[1];
+        } else {
+            ScheduleContainer += CurSch[start];
         }
-
-        if (CurSch.length == 2){
-            ScheduleContainer += ' <br> -' // A workaround to fix a glitch
-        }
-
-        return ScheduleContainer;
-
     }
 
-
-
-
-
-    
-    function AppendTimes(identification, grp, dte) {
-        $(document).ready(function () {
-
-            $('#'+identification).append(Dashify(grp, dte));
-
-        });
+    if (CurSch.length == 2) {
+        ScheduleContainer += ' <br> -' // A workaround to fix a glitch
     }
 
+    return ScheduleContainer;
+
+}
 
 
 
 
-    function ToMilliseconds(palkia) {
-        // Input Format: either HH:MM or HH:MM:SS
-        var dialga = palkia.split(':');
-        if (typeof dialga[2] == 'undefined') {
-            dialga[2] = 0;
-        }
-        var arceus; // Arceus, I choose you!
+function AppendTimes(identification, grp, dte) {
+    $(document).ready(function () {
 
-        //use the Roar of Time!
-        arceus = (dialga[0] * 3600 + dialga[1] * 60) * 1000 + dialga[2] * 1000;
-        // It was super effective. Foe Dialga fainted.
-        return arceus;
+        $('#' + identification).append(Dashify(grp, dte));
+
+    });
+}
+
+
+
+
+function ToMilliseconds(palkia) {
+    var dialga = palkia.split(':');
+    if (typeof dialga[2] == 'undefined') {
+        dialga[2] = 0;
     }
+    var arceus;
+    arceus = (dialga[0] * 3600 + dialga[1] * 60) * 1000 + dialga[2] * 1000;
+    return arceus;
+}
 
 
 
 
-    function FartSparkles(theSlime) {
-        var toTimeNap = [];
-        //theSlime /= 1000;
-        var hr = 1000 * 60 * 60;
-        var min = 1000 * 60;
-        var sec = 1000;
+function normalizeTime(theSlime) {
+    var toTimeNap = [];
+    //theSlime /= 1000;
+    var hr = 1000 * 60 * 60;
+    var min = 1000 * 60;
+    var sec = 1000;
 
-        // These variables kind of... look, like, dorks
-        var hour = theSlime / hr;
-        theSlime %= hr;
-        var minute = theSlime / min;
-        theSlime %= min;
-        var seconds = theSlime / sec;
-        theSlime %= sec;
-        toTimeNap = [
+    // These variables kind of... look, like, dorks
+    var hour = theSlime / hr;
+    theSlime %= hr;
+    var minute = theSlime / min;
+    theSlime %= min;
+    var seconds = theSlime / sec;
+    theSlime %= sec;
+    toTimeNap = [
         Math.floor(hour),
         Math.floor(minute),
-        Math.floor(seconds)];
+        Math.floor(seconds)
+    ];
 
-        // Perhaps they're not dorks after all
-        return toTimeNap;
-    }
+    // Perhaps they're not dorks after all
+    return toTimeNap;
+}
 
-    function TimeStatus(c, b) {
-
-
-        var content = [];
-        for (var t = 0; t < b.length; t += 2) {
-            // If the current time is less than the first power cut of the day
-            if (c < b[0]) {
-                content = [false, 0, b[0]];
-            }
-
-            //If the current time is more than the final power cut of the day
-            else if (c >= b[b.length - 1]) {
-
-                // This below outputs the tme left till the first powercut of the next day
-                // 86400000 equals 24:00
-                content = [false, b[b.length - 1], Millify()[0] + 86400000];
-            }
+function TimeStatus(c, b) {
 
 
-            // If the current time falls under a power cut
-            else if (c >= b[t] && c < b[t + 1]) {
-                console.log('this one right here');
+    var content = [];
+    for (var t = 0; t < b.length; t += 2) {
+        // If the current time is less than the first power cut of the day
+        if (c < b[0]) {
+            content = [false, 0, b[0]];
+        }
 
-                content = [true, b[t], b[t + 1]];
+        //If the current time is more than the final power cut of the day
+        else if (c >= b[b.length - 1]) {
 
-            }
+            // This below outputs the tme left till the first powercut of the next day
+            // 86400000 equals 24:00
+            content = [false, b[b.length - 1], Millify()[0] + 86400000];
+        }
 
-            // If the current time falls outside a powercut
-            else if (c >= b[t + 1] && c < b[t + 2]) {
-                content = [false, b[t + 1], b[t + 2]];
-            }
-            /*
-             * if content[0] is true the power is currently off, if false the power is on.
-             * content[1] is the starting point and content[2] is the ending point.
-             */
+
+        // If the current time falls under a power cut
+        else if (c >= b[t] && c < b[t + 1]) {
+            content = [true, b[t], b[t + 1]];
 
         }
-        return content;
+
+        // If the current time falls outside a powercut
+        else if (c >= b[t + 1] && c < b[t + 2]) {
+            content = [false, b[t + 1], b[t + 2]];
+        }
+
+        /*
+         * if content[0] is true the power is currently off, if false the power is on.
+         * content[1] is the starting point and content[2] is the ending point.
+         */
 
     }
+    return content;
+
+}
 
 
 var curMS = ToMilliseconds(DateObject.getHours() + ':' + DateObject.getMinutes() + ':' + DateObject.getSeconds());
 
-    function Millify() {
-        var _scheduleToMs = [];
-        range = GetSchedule(dataList().DefGroup(), dataList().DayPrefix);
-        for ( var list in range) {
-            _scheduleToMs[list] = ToMilliseconds(range[list]);
-        }
-        return _scheduleToMs;
+function Millify() {
+    var _scheduleToMs = [];
+    range = GetSchedule(dataList().DefGroup(), dataList().DayPrefix);
+    for (var list in range) {
+        _scheduleToMs[list] = ToMilliseconds(range[list]);
     }
+    return _scheduleToMs;
+}
 
 
 
@@ -310,7 +274,7 @@ var powerStatus = TimeStatus(curMS, Millify());
 function remaining() {
     var chewOnThis;
 
-    timeLeft = FartSparkles(powerStatus[2] - curMS);
+    timeLeft = normalizeTime(powerStatus[2] - curMS);
     if (powerStatus[0] == true) {
         $('#style-remaining').removeClass('powerOn');
         $('#style-remaining').addClass('powerOff');
@@ -350,8 +314,9 @@ function NotifyUser(junkireeTitle, junkireeIcon, junkireeMessage) {
         type: 'basic',
         message: junkireeMessage
     }, function () {})
-    
-    setTimeout(function(){
-        chrome.notifications.clear('jidae4f351adddf', function(){})
-    }, 3000);
+
+    // Self destruct in 4 seconds
+    setTimeout(function () {
+        chrome.notifications.clear('jidae4f351adddf', function () {})
+    }, 4000);
 }
