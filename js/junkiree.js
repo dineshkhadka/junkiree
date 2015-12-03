@@ -3,8 +3,10 @@
 Junkiree v3.5.1
 Copyright (C) 2015 by Dinesh Khadka [http://junkiree.github.io]
 
-
 */
+
+
+
 var DayArray = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 var FullDayArray = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 var GroupArray = ['group1', 'group2', 'group3', 'group4', 'group5', 'group6', 'group7'];
@@ -40,6 +42,11 @@ var dataList = function () {
  * local schedules: Testing purposes
  * cdn.rawgit [MaxCDN]: Provides higher bandwith but delay in updates to get noticed.
  * rawgit: Serves Schedules straight through Github but provides extremly lower bandwidths.
+ 
+ * I highly doubt that the apps going to get more than half a dozen users.
+ * Default to straight from git retrieval (rawgit).
+
+
  */
 
 //var ScheduleURL = 'schedule.json';
@@ -48,17 +55,17 @@ var ScheduleURL = 'https://rawgit.com/dineshkhadka/junkiree/master/schedule.json
 var passMessage;
 
 function ParseRemoteSchedule(JSONUrl, ShowNotif) {
-
-    try {
         $(document).ready(function () {
             $.getJSON(JSONUrl)
+
+                // When the JSON gets succesfully downloaded
                 .done(function (Data) {
                     var ArrayToString = JSON.stringify(Data); // Dictionaries?
                     var issueId = Data['issued']['issueId'];
                     if (localStorage.getItem('ScheduleJSON') != undefined) {
                         if (GetSchedule('issued', 'issueId') != issueId) {
                             localStorage.setItem('ScheduleJSON', ArrayToString);
-                            passMessage = 'A new schedule has been found and updated';
+                            passMessage = 'A new schedule was found and schedules were updated';
                         } else {
                             if (ShowNotif != undefined) {
 
@@ -70,20 +77,17 @@ function ParseRemoteSchedule(JSONUrl, ShowNotif) {
                         passMessage = 'A schedule has been downloaded';
                     }
 
-                    NotifyUser('Schedule Updater', 'icons/junkiree-48.png', passMessage);
+                    NotifyUser('Schedule Updater', 'img/notification.png', passMessage);
                 })
+
+                // When the JSON retrieval returns an error
                 .error(function () {
-                    NotifyUser('Schedule Updater', 'img/notification.png', "Failed to Update schedules");
+                    NotifyUser('Schedule Updater', 'img/junkiree-48.png', "Failed to Update schedules. Please check your internet connection");
                 });
 
             ;
 
         }); //end
-
-    } catch (ex) {
-
-
-    }
 
 
 }
@@ -91,8 +95,8 @@ function ParseRemoteSchedule(JSONUrl, ShowNotif) {
 //ParseRemoteSchedule(ScheduleURL)
 function GetSchedule(Group, Day) {
     /*
-        Returns all the schedules of a group if Day(day of the week) is not specified
-        */
+     * Returns all the schedules of a group if Day(day of the week) is not specified
+     */
     var ScheduleItem = localStorage.getItem('ScheduleJSON');
     var Schedule = JSON.parse(ScheduleItem);
     if (Group != undefined) {
@@ -114,13 +118,13 @@ function GetSchedule(Group, Day) {
 
 var isMilitary = localStorage.getItem('Military');
 
-function Dashify(_grp, _dte) {
+function Dashify(curGroup, curDate) {
     var start;
     var even = 0;
     var dash = 0;
 
     var ScheduleContainer = '';
-    var CurSch = GetSchedule(_grp)[_dte];
+    var CurSch = GetSchedule(curGroup)[curDate];
 
     for (start = 0; start < CurSch.length; start++) {
         if (even == 2) {
@@ -131,14 +135,18 @@ function Dashify(_grp, _dte) {
                 ScheduleContainer += ' &mdash; ';
                 dash = 0;
             }
-
             even++;
             dash++;
         }
         
+        // Convert to military time to layman time
+        // Note to self: This causes some performance issues since it runs inside a loop
+        /* TODO: Rewrite this function (Dashify) so it caches the schedule array 
+                 containing layman(?) times.
+         * However it doesn't put a lot of strain on a dual core cpu
+         */
         if (isMilitary == 'false') {
             var toSplit = CurSch[start].split(':');
-
             if (toSplit[0] > 12) {
                 toSplit[0] -= 12;
                 toSplit[1] += ' PM';
@@ -303,20 +311,21 @@ function progress(startTime, endTime, currentTime) {
 
 }
 
-
+function nullFunc(){
+    // This area is intentionally left blank
+}
 
 function NotifyUser(junkireeTitle, junkireeIcon, junkireeMessage) {
-
     // Note to self: This is probably chrome specific
     chrome.notifications.create('jidae4f351adddf', {
         title: junkireeTitle,
         iconUrl: junkireeIcon,
         type: 'basic',
         message: junkireeMessage
-    }, function () {})
+    }, nullFunc);
 
-    // Self destruct in 4 seconds
+    // Self destruct in 4 seconds [Note to self: 5 seconds seemed longer and 3 seemed short]
     setTimeout(function () {
-        chrome.notifications.clear('jidae4f351adddf', function () {})
+        chrome.notifications.clear('jidae4f351adddf', nullFunc)
     }, 4000);
 }
