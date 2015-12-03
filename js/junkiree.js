@@ -82,7 +82,7 @@ function ParseRemoteSchedule(JSONUrl, ShowNotif) {
 
                 // When the JSON retrieval returns an error
                 .error(function () {
-                    NotifyUser('Schedule Updater', 'img/junkiree-48.png', "Failed to Update schedules. Please check your internet connection");
+                    NotifyUser('Schedule Updater', 'icons/junkiree-48.png', "Failed to Update schedules. Please check your internet connection");
                 });
 
             ;
