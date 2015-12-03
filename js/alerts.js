@@ -37,11 +37,11 @@ function alertify(noMessage) {
     var deLorean = status[2] - parseInt(tdelays[delay], 10);
     
 
-    // Attemp to clear a running timer
+    // Attempt to clear a running timer
     window.clearTimeout(timer);
     
     // Template for the alert message
-    var msgTemplate = `${normalizeTime(tdelays[delay])[1]}  Minutes left until a ${(status[0] == true) ? 'power on' : 'power off'}`
+    var msgTemplate = `${normalizeTime(tdelays[delay])[1]}  Minutes left until ${(status[0] == true) ? 'power on' : 'power off'}`
 
     // TODO: Refactor the code as soon as possible. 
     if (curTime > deLorean) {
