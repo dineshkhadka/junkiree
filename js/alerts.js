@@ -25,40 +25,39 @@ var tdelays = {
 */
 
 // TODO: If the Schedules are changed mid program. The notifications are shown at the previous groups time
-function alertify(noMessage) {
-    
-    var timer = null;
+function alertify(nomessage) {
+    console.log("Running code");
+    var timer;
     var delay = localStorage.NotifyID;
-    var ti = new Date(); // It exists since it must be refreshed at each run.
+    var ti = new Date(); 
     var tiTemplate = `${ti.getHours()} : ${ti.getMinutes()} : ${ti.getSeconds()}`
     var curTime = ToMilliseconds(tiTemplate);
     var status = TimeStatus(curTime, Millify());
     var timetick = status[2] - curTime;
-    var deLorean = status[2] - parseInt(tdelays[delay], 10);
-    
-
-    // Attempt to clear a running timer
-    window.clearTimeout(timer);
-    
-    // Template for the alert message
+    var delayedTime = status[2] - parseInt(tdelays[delay], 10);
     var msgTemplate = `${normalizeTime(tdelays[delay])[1]}  Minutes left until ${(status[0] == true) ? 'power on' : 'power off'}`
 
-    // TODO: Refactor the code as soon as possible. 
-    if (curTime > deLorean) {
+   
+    if (curTime > delayedTime) {
         timer = setTimeout(alertify, timetick);
         hideForNow = true;
-        console.log("normalizeTime timeticked:" + normalizeTime(timetick));
-
-    } else {
-
-        if (hideForNow == false && noMessage == false && localStorage.notify == true) {
+        console.log("Current time is greater than the first alarm: " + normalizeTime(timetick));
+       
+    }
+    else{
+        if (hideForNow == false){
             NotifyUser('Junkiree', 'img/notification.png', msgTemplate);
         }
-        
-        timer = setTimeout(alertify, (deLorean - curTime));
-        console.log("normalizeTime Delorean:" + normalizeTime(deLorean - curTime));
+        timer = setTimeout(alertify, parseInt(delayedTime - curTime))
         hideForNow = false;
+        console.log("setting time out for the next ");
+        console.log(normalizeTime(parseInt(delayedTime - curTime)))
     }
+
+
+
+
+    
 }
 
 
@@ -66,7 +65,7 @@ function alertify(noMessage) {
 
 // The code below checks for new scedules and figures out if this is the first run
 if (localStorage.ScheduleJSON != null) {
-    alertify()
+    localStorage.Notify == 'true' && alertify()
     if (localStorage.AutoUpdate == 'true' && localStorage.lastUpdate != DateObject.getDay()) {
             console.log("Checked For a Update!")
             ParseRemoteSchedule(ScheduleURL);
