@@ -53,19 +53,17 @@ function alertify(nomessage) {
         console.log("setting time out for the next ");
         console.log(normalizeTime(parseInt(delayedTime - curTime)))
     }
-
-
-
-
-    
 }
 
 
 
 
-// The code below checks for new scedules and figures out if this is the first run
+// The code below checks for new schedules and figures out if this is the first run
 if (localStorage.ScheduleJSON != null) {
-    localStorage.Notify == 'true' && alertify()
+    //localStorage.Notify == 'true' && alertify()
+    if (localStorage.Notify == 'true' && noPowercut == false){
+        alertify()
+    }
     if (localStorage.AutoUpdate == 'true' && localStorage.lastUpdate != DateObject.getDay()) {
             console.log("Checked For a Update!")
             ParseRemoteSchedule(ScheduleURL);
