@@ -25,13 +25,21 @@ $('document').ready(function(){
             }
         }
 
+        
         $('#style-today').html(FullDayArray[dataList().DayIndex])
         $('#style-current').html(thisHour + ':' + addZero + thisMinute + timeFormat);
         $('#style-group').html(GetSchedule(dataList().DefGroup(), 'title'));
 
 
         AppendTimes('style-tommorow', dataList().DefGroup(), dataList().NextDayPrefix());
-        AppendTimes('style-times', dataList().DefGroup(), dataList().DayPrefix);
+        if (noPowercut == false){
+            AppendTimes('style-times', dataList().DefGroup(), dataList().DayPrefix);
+        }
+        else{
+            $('#style-times').html('No Powercuts')
+            
+        }
+        
 
         if (isMilitary == 'false') {
             $('#style-times').addClass('meridian-today')
