@@ -117,6 +117,7 @@ function GetSchedule(Group, Day) {
 //ParseRemoteSchedule(ScheduleURL);
 
 var isMilitary = localStorage.getItem('Military');
+var noPowercut = jQuery.isEmptyObject(GetSchedule(dataList().DefGroup(), dataList().DayPrefix))
 
 function Dashify(curGroup, curDate) {
     var start;
@@ -227,35 +228,24 @@ function TimeStatus(c, b) {
 
     var content = [];
     for (var t = 0; t < b.length; t += 2) {
-        // If the current time is less than the first power cut of the day
         if (c < b[0]) {
             content = [false, 0, b[0]];
         }
 
-        //If the current time is more than the final power cut of the day
         else if (c >= b[b.length - 1]) {
 
-            // This below outputs the tme left till the first powercut of the next day
-            // 86400000 equals 24:00
             content = [false, b[b.length - 1], Millify()[0] + 86400000];
         }
 
 
-        // If the current time falls under a power cut
         else if (c >= b[t] && c < b[t + 1]) {
             content = [true, b[t], b[t + 1]];
 
         }
 
-        // If the current time falls outside a powercut
         else if (c >= b[t + 1] && c < b[t + 2]) {
             content = [false, b[t + 1], b[t + 2]];
         }
-
-        /*
-         * if content[0] is true the power is currently off, if false the power is on.
-         * content[1] is the starting point and content[2] is the ending point.
-         */
 
     }
     return content;
@@ -282,25 +272,25 @@ var powerStatus = TimeStatus(curMS, Millify());
 function remaining() {
     var chewOnThis;
 
-    timeLeft = normalizeTime(powerStatus[2] - curMS);
-    if (powerStatus[0] == true) {
-        $('#style-remaining').removeClass('powerOn');
-        $('#style-remaining').addClass('powerOff');
-        chewOnThis = 'Time till power on: ';
-    } else if (powerStatus[0] == false) {
-        $('#style-remaining').addClass('powerOn');
-        $('#style-remaining').removeClass('powerOff');
-        chewOnThis = 'Time till power off: '
-    }
+    if (jQuery.isEmptyObject(powerStatus) == false){
+        timeLeft = normalizeTime(powerStatus[2] - curMS);
+        if (powerStatus[0] == true) {
+            $('#style-remaining').removeClass('powerOn');
+            $('#style-remaining').addClass('powerOff');
+            chewOnThis = 'Time till power on: ';
+        } else if (powerStatus[0] == false) {
+            $('#style-remaining').addClass('powerOn');
+            $('#style-remaining').removeClass('powerOff');
+            chewOnThis = 'Time till power off: '
+        }
+        // Don't let the user see a big zero
+        if (timeLeft[0] != 0) {
+            chewOnThis += timeLeft[0] + ' Hours ';
+        }
 
-    // Don't let the user see a big zero
-    if (timeLeft[0] != 0) {
-        chewOnThis += timeLeft[0] + ' Hours ';
+        chewOnThis += timeLeft[1] + ' Minutes';
     }
-
-    chewOnThis += timeLeft[1] + ' Minutes';
     return chewOnThis;
-
 }
 
 
